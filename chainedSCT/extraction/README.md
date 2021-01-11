@@ -1,4 +1,4 @@
-#Python & PostgreSQL
+## Python & PostgreSQL
 
 Please consider this important note that you should be able to connect to your postgresql. Use this guidance to do so.
 ### installation and configuration 
