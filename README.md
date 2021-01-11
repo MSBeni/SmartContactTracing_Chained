@@ -16,6 +16,7 @@ This README would normally document the content of the Comvest website.
 - [About the Project](#About-the-Project)
 - [About The Dataset](#About-The-Dataset)
 - [Data Extraction](#Data-Extraction)
+- [Database Configuration](#Database-Configuration)
 - [Data Cleansing and Normalization](#Data-Cleansing-and-Normalization)
 - [Indoor Localization and Proximity Estimation](#Indoor-Localization-and-Proximity-Estimation)
 - [Loading Results on Blockchain](#Loading-Results-on-Blockchain)
@@ -34,6 +35,11 @@ A data pipeline for Smart Contact Tracing using blockchain in order to store the
 
 
 ## Data Extraction
+
+## Database Configuration
+Please consider this important note that you should be able to connect to your postgresql. Use the guidance here:
+to do so.
+
 
 
 ## Data Cleansing and Normalization
