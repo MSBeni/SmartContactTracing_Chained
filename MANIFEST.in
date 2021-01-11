@@ -3,5 +3,3 @@ include *.txt
 recursive-include build *.py
 recursive-include dist *.whl
 recursive-include src *.py
-recursive-include chainedSCT *.csv
-recursive-include chainedSCT *.sh

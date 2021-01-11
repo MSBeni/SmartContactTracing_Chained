@@ -1,6 +1,7 @@
 import argparse
 import sys
 
+
 def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--numUsers', type=int, help="Number of users in the environment")
