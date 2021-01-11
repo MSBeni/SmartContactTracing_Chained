@@ -37,8 +37,7 @@ A data pipeline for Smart Contact Tracing using blockchain in order to store the
 ## Data Extraction
 
 ## Database Configuration
-Please consider this important note that you should be able to connect to your postgresql. Use the guidance here:
-to do so.
+Please consider this important note that you should be able to connect to your postgresql. Use the guidance here: https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/chainedSCT/extraction/README.md
 
 
 
