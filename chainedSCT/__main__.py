@@ -1,6 +1,6 @@
 import argparse
 import sys
-
+from .extraction.create_user import User
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -20,7 +20,9 @@ def main(argv=None):
         parser = create_parser()
         args = parser.parse_args(argv[1:])
 
-        print(args.numUsers)
+        user = User('jose@schoolofcode.me', 'Jose', 130)
+
+        print(args.numUsers, user)
 
 
     except KeyboardInterrupt:
