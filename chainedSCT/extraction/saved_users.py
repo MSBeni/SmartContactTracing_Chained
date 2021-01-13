@@ -21,12 +21,12 @@ class UserDB:
 
             __users_lst.append(user_info)
 
-        user = User(__users_lst[1]['ID'], __users_lst[1]['First_Name'], __users_lst[1]['Last_Name'],
-                    __users_lst[1]['Email'])
+        user = User(__users_lst[1]['Email'], __users_lst[1]['First_Name'], __users_lst[1]['Last_Name'],
+                    __users_lst[1]['ID'])
         user.create_users_table()
         for i in range(2, len(__users_lst)):
-            user = User(__users_lst[i]['ID'], __users_lst[i]['First_Name'], __users_lst[i]['Last_Name'],
-                        __users_lst[i]['Email'])
+            user = User(__users_lst[i]['Email'], __users_lst[i]['First_Name'], __users_lst[i]['Last_Name'],
+                        __users_lst[i]['ID'])
 
             user.save_to_db()
 
