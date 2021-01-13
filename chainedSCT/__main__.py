@@ -26,12 +26,12 @@ def main(argv=None):
         MY_PASS = json.loads(open('../../secretfiles.json', 'r').read())['web']['user_pw']
         Database.initialize(database='chainedSCT', user='i-sip_iot', password=MY_PASS, host='localhost')
 
-        user = User('patriciarobinson@gmail.com', 'Samantha', 'Gallegos', 66048763)
-        UserDB.users_submission(args)
+        # user = User('patriciarobinson@gmail.com', 'Samantha', 'Gallegos', 66048763)
+        # UserDB.users_submission(args)
 
         print(args.numUsers)
 
-        user.fetch_data()
+        User.fetch_data()
 
 
     except KeyboardInterrupt:

@@ -55,7 +55,8 @@ class User:
             except:
                 print("Unable to add data")
 
-    def fetch_data(self):
+    @staticmethod
+    def fetch_data():
         """
         Executing the selection of inner data of the table
         :return:
@@ -70,6 +71,24 @@ class User:
                 print(cursor.fetchall())
             except:
                 print("Failed to read the table contents ...")
+
+    @staticmethod
+    def fetch_ids():
+        """
+        Executing the selection of inner id of the users from the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT users.id FROM users;")
+                print(cursor.fetchall())
+            except:
+                print("Failed to read the table contents ...")
+
 
     @classmethod
     def load_from_db_by_email(cls, email):
