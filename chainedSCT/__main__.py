@@ -26,7 +26,7 @@ def main(argv=None):
         MY_PASS = json.loads(open('../../../../secretfiles.json', 'r').read())['web']['user_pw']
         Database.initialize(database='chainedSCT', user='i-sip_iot', password=MY_PASS, host='localhost')
 
-        user = User('Samantha', 'Gallegos', 'patriciarobinson@gmail.com', 66048763)
+        user = User('patriciarobinson@gmail.com', 'Samantha', 'Gallegos', 66048763)
         UserDB.users_submission(args.numUsers)
 
         print(args.numUsers)
