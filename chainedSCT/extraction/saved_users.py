@@ -6,8 +6,7 @@ class UserDB:
     __user_dict = {'ID': None,
                    'First_Name': None,
                    'Last_Name': None,
-                   'Email': None,
-                   'Address': None}
+                   'Email': None}
 
     @staticmethod
     def users_submission(argument_handler):
