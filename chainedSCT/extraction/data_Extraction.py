@@ -16,3 +16,4 @@ class UsersDataExtraction:
         step_size = 0.5
         num_steps = random.randint(20, 60)
         for i in range(num_steps):
+

@@ -8,6 +8,7 @@ from .extraction.database import Database
 def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--numUsers', type=int, help="Number of users in the environment")
+    parser.add_argument('--numDays', type=int, help="Number of days the test is conducted")
 
     return parser
 
