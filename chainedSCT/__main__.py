@@ -23,11 +23,11 @@ def main(argv=None):
         parser = create_parser()
         args = parser.parse_args(argv[1:])
 
-        MY_PASS = json.loads(open('../../../../secretfiles.json', 'r').read())['web']['user_pw']
+        MY_PASS = json.loads(open('../../secretfiles.json', 'r').read())['web']['user_pw']
         Database.initialize(database='chainedSCT', user='i-sip_iot', password=MY_PASS, host='localhost')
 
         user = User('patriciarobinson@gmail.com', 'Samantha', 'Gallegos', 66048763)
-        UserDB.users_submission(args.numUsers)
+        UserDB.users_submission(args)
 
         print(args.numUsers)
 
