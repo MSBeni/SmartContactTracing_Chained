@@ -1,7 +1,9 @@
 import argparse
 import sys
+import json
 from .extraction.user import User
-
+from .extraction.saved_users import UserDB
+from .extraction.database import Database
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -21,9 +23,15 @@ def main(argv=None):
         parser = create_parser()
         args = parser.parse_args(argv[1:])
 
-        user = User('jose@schoolofcode.me', 'Jose', 130)
+        MY_PASS = json.loads(open('../../../../secretfiles.json', 'r').read())['web']['user_pw']
+        Database.initialize(database='chainedSCT', user='i-sip_iot', password=MY_PASS, host='localhost')
 
-        print(args.numUsers, user)
+        user = User('Samantha', 'Gallegos', 'patriciarobinson@gmail.com', 66048763)
+        UserDB.users_submission(args.numUsers)
+
+        print(args.numUsers)
+
+        user.fetch_data()
 
 
     except KeyboardInterrupt:
