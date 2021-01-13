@@ -1,6 +1,7 @@
 import argparse
 import sys
-from .extraction.create_user import User
+from .extraction.user import User
+
 
 def create_parser():
     parser = argparse.ArgumentParser()

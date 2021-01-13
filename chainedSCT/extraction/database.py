@@ -6,7 +6,7 @@ class Database:
     __connection_pool = None
 
     @staticmethod
-    def initialise(**kwargs):
+    def initialize(**kwargs):
         Database.__connection_pool = pool.SimpleConnectionPool(1, 10, **kwargs)
 
     @staticmethod

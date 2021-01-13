@@ -11,7 +11,7 @@ class User:
     def __repr__(self):
         return "< User {} >".format(self.email)
 
-    def create_table(self):
+    def create_users_table(self):
         """
         Create database if it does not exist
         :return:
@@ -24,10 +24,10 @@ class User:
             try:
                 cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "public"."users"(
-                    "id" SERIAL PRIMARY KEY,
-                    "email" character varying(255),
+                    "id" INTEGER PRIMARY KEY,
                     "first_name" character varying(255),
-                    "last_name" character varying(255)
+                    "last_name" character varying(255),
+                    "email" character varying(255)
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -50,8 +50,8 @@ class User:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO users (email, first_name, last_name) VALUES (%s, %s, %s);',
-                               (self.email, self.first_name, self.last_name))
+                cursor.execute('INSERT INTO users (id, first_name, last_name, email) VALUES (%s, %s, %s, %s);',
+                               (self.id, self.first_name, self.last_name, self.email))
             except:
                 print("Unable to add data")
 
