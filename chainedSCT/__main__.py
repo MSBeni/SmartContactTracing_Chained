@@ -31,7 +31,8 @@ def main(argv=None):
 
         print(args.numUsers)
 
-        User.fetch_data()
+        # User.fetch_data()
+        User.fetch_ids()
 
 
     except KeyboardInterrupt:

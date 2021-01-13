@@ -37,6 +37,33 @@ class User:
             except:
                 print("Unable to craete the table!!!")
 
+    def create_users_location_table(self):
+        """
+        Create database if it does not exist
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("""
+                CREATE TABLE IF NOT EXISTS "public"."locations"(
+                    "id" INTEGER PRIMARY KEY,
+                    "date" character varying(255),
+                    "time" character varying(255),
+                    "X_location" FLOAT,
+                    "Y_location" FLOAT
+                )
+                WITH (OIDS=FALSE);
+                """)
+
+                print("TABLE {} created".format('locations'))
+
+            except:
+                print("Unable to create the table!!!")
+
     def save_to_db(self):
         """
         Save the inserted data into the database
