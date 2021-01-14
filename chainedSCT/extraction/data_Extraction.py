@@ -1,6 +1,8 @@
+from .locations import Location
 from .user import User
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
+
 
 class UsersDataExtraction:
     def __init__(self, step_size=0.5):
@@ -21,7 +23,8 @@ class UsersDataExtraction:
 
         return selected_users
 
-    def random_user_location(self):
+    @staticmethod
+    def random_user_location(step_size=0.5):
         """
         create locations based on defined step size and number of steps in the environment for each user
         :return: list of the positions' tuples
@@ -32,8 +35,8 @@ class UsersDataExtraction:
         positions.append((x_pos, y_pos))
         num_steps = random.randint(20, 50)
         while num_steps > 0:
-            new_x_pos = x_pos + random.choice([-1, 1]) * self.step_size
-            new_y_pos = y_pos + random.choice([-1, 1]) * self.step_size
+            new_x_pos = x_pos + random.choice([-1, 1]) * step_size
+            new_y_pos = y_pos + random.choice([-1, 1]) * step_size
             if (0.0 <= new_x_pos <= 20.0) and (0.0 <= new_y_pos <= 10.0):
                 positions.append((new_x_pos, new_y_pos))
                 num_steps -= 1
@@ -42,11 +45,22 @@ class UsersDataExtraction:
 
     @classmethod
     def save_to_db(cls, argument_handler):
+        """
+        create data specifically for all the active users and save timestamped data containing the user's locations to
+        database
+        :param argument_handler: imported arguments
+        :return:
+        """
+        location_ = {'user_id': None, 'date_local': None, 'time_local': None, 'X': None, 'Y': None}
         selected_users = cls.random_users(argument_handler)
         for user in selected_users:
             for j in range(argument_handler.numDays):
-                location_ = {'user_id': None, 'date_local': None, 'time_local': None, 'X': None, 'Y': None}
-                now_date = datetime.now().date()
-                now_time = datetime.now().time()
-                date_local = now_date.strftime('%d/%b/%Y')
-                time_local = now_time.strftime('%H:%M:%S')
+                date_local = (datetime.today() - timedelta(days=1)).date()
+                xy_locations = cls.random_user_location()
+                for i in range(len(xy_locations)):
+                    time_local = (datetime.now() - timedelta(seconds=5)).time()
+                    location_ = Location(str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1],
+                                         user[0])
+                    location_.save_loc_to_db()
+
+

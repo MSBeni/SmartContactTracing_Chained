@@ -39,7 +39,7 @@ class Location:
             except:
                 print("Unable to create the table!!!")
 
-    def save_to_db(self):
+    def save_loc_to_db(self):
         """
         Save the inserted data into the database
         :return:
@@ -58,7 +58,7 @@ class Location:
                 print("Unable to add data")
 
     @staticmethod
-    def fetch_data():
+    def fetch_loc_data():
         """
         Executing the selection of inner data of the table
         :return:
@@ -75,7 +75,7 @@ class Location:
                 print("Failed to read the table contents ...")
 
     @staticmethod
-    def fetch_ids():
+    def fetch_loc_ids():
         """
         Executing the selection of inner id of the locations from the table
         :return:
