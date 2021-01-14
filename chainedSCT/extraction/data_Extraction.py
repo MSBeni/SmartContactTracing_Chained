@@ -46,7 +46,7 @@ class UsersDataExtraction:
         return positions
 
     @classmethod
-    def save_to_db(cls, argument_handler):
+    def save_location_to_db(cls, argument_handler):
         """
         create data specifically for all the active users and save timestamped data containing the user's locations to
         database
@@ -61,7 +61,7 @@ class UsersDataExtraction:
                 xy_locations = cls.random_user_location()
                 for i in range(len(xy_locations)):
                     time_local = (datetime.now() - timedelta(seconds=5)).time()
-                    location_ = Location(str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1], user)
+                    location_ = Location(user, str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1])
                     location_.save_loc_to_db()
 
 

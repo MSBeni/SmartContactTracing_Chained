@@ -42,7 +42,7 @@ def main(argv=None):
         # print("ids --->", ids_lst)
 
         # create user location
-        UsersDataExtraction.save_to_db(args)
+        UsersDataExtraction.save_location_to_db(args)
 
 
     except KeyboardInterrupt:
