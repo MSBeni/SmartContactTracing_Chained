@@ -54,15 +54,14 @@ class UsersDataExtraction:
         :return:
         """
         # location_ = {'user_id': None, 'date_local': None, 'time_local': None, 'X': None, 'Y': None}
-        selected_users = cls.random_users(argument_handler)
+        selected_users = cls.random_users()
         for user in selected_users:
             for j in range(argument_handler.numDays):
-                date_local = (datetime.today() - timedelta(days=1)).date()
+                date_local = str((datetime.today() - timedelta(days=1)).date())
                 xy_locations = cls.random_user_location()
                 for i in range(len(xy_locations)):
                     time_local = (datetime.now() - timedelta(seconds=5)).time()
-                    location_ = Location(str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1],
-                                         user[0])
+                    location_ = Location(str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1], user)
                     location_.save_loc_to_db()
 
 
