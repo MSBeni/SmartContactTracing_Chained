@@ -2,10 +2,11 @@ from ..extraction import CursorFromConnectionPool
 
 
 class Proximity:
-    def __init__(self, date_local, user_id, contact_user_id, proximity):
+    def __init__(self, date_local, user_id, contact_user_id, distance, proximity):
         self.date_local = date_local
         self.user_id = user_id
         self.contact_user_id = contact_user_id
+        self.distance = distance
         self.proximity = proximity
 
     def __repr__(self):
@@ -28,7 +29,8 @@ class Proximity:
                     "pos_date" DATE NOT NULL,
                     "user_id" int4 NOT NULL,
                     "contact_id" int4 NOT NULL,
-                    "proximity"  numeric(10,4)
+                    "distance"  numeric(10,4),
+                    "proximity"  character varying(255)
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -38,7 +40,7 @@ class Proximity:
             except:
                 print("Unable to create the table!!!")
 
-    def save_loc_to_db(self):
+    def save_proximity_to_db(self):
         """
         Save the inserted data into the database
         :return:
@@ -51,8 +53,8 @@ class Proximity:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO proximity (pos_date, user_id, contact_id, proximity) VALUES '
-                               '(%s, %s, %s, %s);',
+                cursor.execute('INSERT INTO proximity (pos_date, user_id, contact_id, distance, proximity) VALUES '
+                               '(%s, %s, %s, %s, %s);',
                                (self.date_local, self.user_id, self.contact_user_id, self.proximity))
             except:
                 print("Unable to add data")
