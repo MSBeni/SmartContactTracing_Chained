@@ -28,8 +28,8 @@ class Location:
                     "id" INTEGER PRIMARY KEY,
                     "date_" character varying(255),
                     "time_" character varying(255),
-                    "x_pos" character varying(255),
-                    "y_pos" character varying(255)
+                    "x_pos" numeric,
+                    "y_pos" numeric
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -52,7 +52,7 @@ class Location:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO users (id, date_, time_, x_pos, y_pos) VALUES (%s, %s, %s, %s, %s);',
+                cursor.execute('INSERT INTO locations (id, date_, time_, x_pos, y_pos) VALUES (%s, %s, %s, %s, %s);',
                                (self.user_id, self.date_local, self.time_local, self.x_pos, self.y_pos))
             except:
                 print("Unable to add data")
