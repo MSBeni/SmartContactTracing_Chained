@@ -7,7 +7,7 @@ import numpy as np
 class ProximityCALC:
 
     @staticmethod
-    def prox_calc():
+    def prox_calc(argument_handler):
         unique_contact_dates = set(Location.fetch_loc_dates()[0])
         unique_contact_dates = list(unique_contact_dates)
         # print(unique_contact_dates[0][0])
@@ -20,7 +20,7 @@ class ProximityCALC:
         # unique_users_in_this_date = set(Location.fetch_proximity_loc_by_date_id(unique_contact_dates[0], user_ids[0])[0])
         # unique_users_in_this_date = Location.fetch_proximity_loc_by_date_id(unique_contact_dates[0][0], user_ids[0][0])
         # print(set(unique_users_in_this_date[0]))
-
+        Proximity.create_proximity_table()
         for date in unique_contact_dates:
             unique_users_in_this_date = set(Location.fetch_proximity_ids_by_date(date)[0])
             unique_users_in_this_date = list(unique_users_in_this_date)
@@ -37,7 +37,16 @@ class ProximityCALC:
                                 distance = np.sqrt(np.power(float(pos[0]) - float(pos_other[0]), 2) +
                                                    np.power(float(pos[1]) - float(pos_other[1]), 2))
 
-                                print(distance)
+                                if distance < argument_handler.immediate:
+                                    proximity = 'immediate'
+                                elif argument_handler.immediate < distance < argument_handler.near:
+                                    proximity = 'near'
+                                else:
+                                    proximity = 'far'
+
+                                proximity = Proximity(date, user, other_users, distance, proximity)
+                                proximity.save_proximity_to_db()
+
 
 
 

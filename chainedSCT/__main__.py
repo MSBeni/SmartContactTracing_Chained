@@ -13,6 +13,9 @@ def create_parser():
     parser.add_argument('--numUsers', type=int, default=50, help="Number of users in the environment")
     parser.add_argument('--numDays', type=int, default=21, help="Number of days the test is conducted")
     parser.add_argument('--usersInDay', type=int, default=10, help="Number of active users in each day")
+    parser.add_argument('--immediate', type=int, default=1, help="Distance where two users are considered immediate")
+    parser.add_argument('--near', type=int, default=5, help="Distance where two users are considered near")
+
 
     return parser
 
