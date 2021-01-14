@@ -2,7 +2,7 @@ from .database import CursorFromConnectionPool
 
 
 class Location:
-    def __init__(self, date_local, time_local, x_pos, y_pos, user_id=None):
+    def __init__(self, user_id, date_local, time_local, x_pos, y_pos):
         self.date_local = date_local
         self.time_local = time_local
         self.x_pos = x_pos
@@ -25,11 +25,11 @@ class Location:
             try:
                 cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "public"."locations"(
-                    "id" INTEGER PRIMARY KEY,
-                    "date_" character varying(255),
-                    "time_" character varying(255),
-                    "x_pos" numeric,
-                    "y_pos" numeric
+                    "user_id" int4 NOT NULL,
+                    "pos_date" DATE NOT NULL,
+                    "pos_time" TIME NOT NULL,
+                    "x_pos"  numeric(10,4),
+                    "y_pos"  numeric(10,4)
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -52,7 +52,7 @@ class Location:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO locations (id, date_, time_, x_pos, y_pos) VALUES (%s, %s, %s, %s, %s);',
+                cursor.execute('INSERT INTO locations (user_id, pos_date, pos_time, x_pos, y_pos) VALUES (%s, %s, %s, %s, %s);',
                                (self.user_id, self.date_local, self.time_local, self.x_pos, self.y_pos))
             except:
                 print("Unable to add data")

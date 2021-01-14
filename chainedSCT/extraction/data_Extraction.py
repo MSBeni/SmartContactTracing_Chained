@@ -55,15 +55,20 @@ class UsersDataExtraction:
         """
         # location_ = {'user_id': None, 'date_local': None, 'time_local': None, 'X': None, 'Y': None}
         selected_users = cls.random_users()
+        xy_locations = cls.random_user_location()
+        date_local = (datetime.today() - timedelta(days=1)).date()
+        time_local = (datetime.now() - timedelta(seconds=1)).time()
+        location_ = Location(selected_users[0], date_local, time_local, xy_locations[0][0], xy_locations[0][1])
+        location_.create_locations_table()
+
         for user in selected_users:
             for j in range(argument_handler.numDays):
-                date_local = str((datetime.today() - timedelta(days=1)).date())
+                date_local = (datetime.today() - timedelta(days=1)).date()
                 xy_locations = cls.random_user_location()
                 for i in range(len(xy_locations)):
-                    time_local = str((datetime.now() - timedelta(seconds=5)).time())
-                    # print(date_local, time_local, xy_locations[i][0], xy_locations[i][1], user)
-                    # print(type(date_local), type(time_local), type(xy_locations[i][0]), type(xy_locations[i][1]), type(user))
-                    location_ = Location(str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1], user)
-                    location_.save_loc_to_db()
+                    time_local = (datetime.now() - timedelta(seconds=5)).time()
+                    print(str(user), str(date_local), str(time_local), str(xy_locations[i][0]), str(xy_locations[i][1]))
+                    location_ = Location(user, date_local, time_local, xy_locations[i][0], xy_locations[i][1])
 
+                    location_.save_loc_to_db()
 

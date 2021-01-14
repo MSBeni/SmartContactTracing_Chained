@@ -41,6 +41,8 @@ def main(argv=None):
         ids_lst = User.load_all_ids_from_db()
         # print("ids --->", ids_lst)
 
+
+
         # create user location
         UsersDataExtraction.save_location_to_db(args)
 
