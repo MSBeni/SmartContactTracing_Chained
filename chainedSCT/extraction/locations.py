@@ -117,3 +117,48 @@ class Location:
 
 
 
+    @staticmethod
+    def fetch_proximity_ids_by_date(date):
+        """
+        Executing the selection of inner id of the proximity from the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            uniqe_users_in_a_day = []
+            try:
+                cursor.execute("SELECT locations.user_id FROM locations WHERE locations.pos_date=(%s);",
+                               (date,))
+                all_users_id = cursor.fetchall()
+                uniqe_users_in_a_day.append(all_users_id)
+                return uniqe_users_in_a_day
+            except:
+                print("Failed to read the table contents ...")
+
+
+    @staticmethod
+    def fetch_proximity_loc_by_date_id(date):
+        """
+        Executing the selection of inner id of the proximity from the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            uniqe_users_in_a_day = []
+            try:
+                cursor.execute("SELECT locations.user_id, locations.user_id, locations.user_id FROM locations WHERE locations.pos_date=(%s) AND locations.user_id=(%s);",
+                               (date,))
+                all_users_id = cursor.fetchall()
+                uniqe_users_in_a_day.append(all_users_id)
+                return uniqe_users_in_a_day
+            except:
+                print("Failed to read the table contents ...")
+
+
+

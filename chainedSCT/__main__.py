@@ -49,9 +49,9 @@ def main(argv=None):
         # return all location values
         # Location.fetch_loc_data()
 
-        contact_dates = ProximityCALC.prox_calc()
-        print(contact_dates[0])
-        print(set(contact_dates))
+        ProximityCALC.prox_calc()
+        # print(contact_dates[0])
+        # print(set(contact_dates))
 
 
     except KeyboardInterrupt:
