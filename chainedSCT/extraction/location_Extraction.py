@@ -34,20 +34,20 @@ class UsersDataExtraction:
         positions.append((x_pos, y_pos))
         num_steps = random.randint(20, 50)
 
-        wei = random.choice([-1, 1])
-        wei2 = random.choice([-1, 1])
-        for _ in range(num_steps):
-            new_x_pos = x_pos + wei * step_size
-            new_y_pos = y_pos + wei2 * step_size
-            if (0.0 <= new_x_pos <= 20.0) and (0.0 <= new_y_pos <= 10.0):
-                positions.append((new_x_pos, new_y_pos))
-
-        # while num_steps > 0:
+        # wei = random.choice([-1, 1])
+        # wei2 = random.choice([-1, 1])
+        # for _ in range(num_steps):
         #     new_x_pos = x_pos + wei * step_size
         #     new_y_pos = y_pos + wei2 * step_size
         #     if (0.0 <= new_x_pos <= 20.0) and (0.0 <= new_y_pos <= 10.0):
         #         positions.append((new_x_pos, new_y_pos))
-        #         num_steps -= 1
+
+        while num_steps > 0:
+            new_x_pos = x_pos + random.choice([-1, 1]) * step_size
+            new_y_pos = y_pos + random.choice([-1, 1]) * step_size
+            if (0.0 <= new_x_pos <= 20.0) and (0.0 <= new_y_pos <= 10.0):
+                positions.append((new_x_pos, new_y_pos))
+                num_steps -= 1
 
         return positions
 

@@ -152,9 +152,8 @@ class Location:
             """
             user_location_in_a_day = []
             try:
-                cursor.execute("SELECT locations.user_id, locations.x_pos, locations.y_pos FROM locations "
-                               "WHERE locations.pos_date=(%s) AND locations.user_id=(%s);",
-                               (date, _user_id))
+                cursor.execute("SELECT locations.x_pos, locations.y_pos FROM locations "
+                               "WHERE locations.pos_date=(%s) AND locations.user_id=(%s);", (date, _user_id))
                 all_users_locs = cursor.fetchall()
                 user_location_in_a_day.append(all_users_locs)
                 return user_location_in_a_day

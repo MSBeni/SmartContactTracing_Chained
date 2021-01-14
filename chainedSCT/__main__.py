@@ -44,12 +44,12 @@ def main(argv=None):
         # print("ids --->", ids_lst)
 
         # create user location
-        UsersDataExtraction.save_location_to_db(args)
+        # UsersDataExtraction.save_location_to_db(args)
 
         # return all location values
-        Location.fetch_loc_data()
+        # Location.fetch_loc_data()
 
-        # ProximityCALC.prox_calc()
+        ProximityCALC.prox_calc()
         # print(contact_dates[0])
         # print(set(contact_dates))
 
