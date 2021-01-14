@@ -60,8 +60,10 @@ class UsersDataExtraction:
                 date_local = str((datetime.today() - timedelta(days=1)).date())
                 xy_locations = cls.random_user_location()
                 for i in range(len(xy_locations)):
-                    time_local = (datetime.now() - timedelta(seconds=5)).time()
-                    location_ = Location(user, str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1])
+                    time_local = str((datetime.now() - timedelta(seconds=5)).time())
+                    # print(date_local, time_local, xy_locations[i][0], xy_locations[i][1], user)
+                    # print(type(date_local), type(time_local), type(xy_locations[i][0]), type(xy_locations[i][1]), type(user))
+                    location_ = Location(str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1], user)
                     location_.save_loc_to_db()
 
 
