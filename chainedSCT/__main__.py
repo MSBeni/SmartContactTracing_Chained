@@ -7,6 +7,7 @@ from .extraction.database import Database
 from .extraction.location_Extraction import UsersDataExtraction
 from .extraction.locations import Location
 from .transformation.proximity_extraction import ProximityCALC
+from .transformation.proximity import Proximity
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -52,7 +53,9 @@ def main(argv=None):
         # return all location values
         # Location.fetch_loc_data()
 
-        ProximityCALC.prox_calc()
+        ProximityCALC.prox_calc(args)
+        Proximity.fetch_proximity_data()
+
         # print(contact_dates[0])
         # print(set(contact_dates))
 
