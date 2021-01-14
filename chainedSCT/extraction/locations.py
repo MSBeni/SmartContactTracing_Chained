@@ -95,3 +95,25 @@ class Location:
                 print("Failed to read the table contents ...")
 
 
+    @staticmethod
+    def fetch_loc_dates():
+        """
+        Executing the selection of inner id of the locations from the table
+        :return:
+        """
+        dates_lst = []
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT locations.pos_date FROM locations;")
+                location_data = cursor.fetchall()
+                dates_lst.append(location_data)
+                return dates_lst
+            except:
+                print("Failed to read the table contents ...")
+
+
+

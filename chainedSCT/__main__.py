@@ -6,6 +6,7 @@ from .extraction.saved_users import UserDB
 from .extraction.database import Database
 from .extraction.location_Extraction import UsersDataExtraction
 from .extraction.locations import Location
+from .transformation.proximity_extraction import ProximityCALC
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -43,9 +44,14 @@ def main(argv=None):
         # print("ids --->", ids_lst)
 
         # create user location
-        UsersDataExtraction.save_location_to_db(args)
+        # UsersDataExtraction.save_location_to_db(args)
 
-        Location.fetch_loc_data()
+        # return all location values
+        # Location.fetch_loc_data()
+
+        contact_dates = ProximityCALC.prox_calc()
+        print(contact_dates[0])
+        print(set(contact_dates))
 
 
     except KeyboardInterrupt:
