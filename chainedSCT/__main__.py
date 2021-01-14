@@ -4,7 +4,7 @@ import json
 from .extraction.user import User
 from .extraction.saved_users import UserDB
 from .extraction.database import Database
-from .extraction.data_Extraction import UsersDataExtraction
+from .extraction.location_Extraction import UsersDataExtraction
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -40,8 +40,6 @@ def main(argv=None):
         # Load ids
         ids_lst = User.load_all_ids_from_db()
         # print("ids --->", ids_lst)
-
-
 
         # create user location
         UsersDataExtraction.save_location_to_db(args)

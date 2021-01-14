@@ -1,16 +1,15 @@
-from .database import CursorFromConnectionPool
+from ..extraction import CursorFromConnectionPool
 
 
-class Location:
-    def __init__(self, user_id, date_local, time_local, x_pos, y_pos):
-        self.date_local = date_local
+class Proximity:
+    def __init__(self, time_local, init_user_id, sec_user_id, proximity):
         self.time_local = time_local
-        self.x_pos = x_pos
-        self.y_pos = y_pos
-        self.user_id = user_id
+        self.init_user_id = init_user_id
+        self.sec_user_id = sec_user_id
+        self.proximity = proximity
 
     def __repr__(self):
-        return "< User {} >".format(self.user_id)
+        return "< User {} >".format(self.init_user_id)
 
     def create_locations_table(self):
         """
