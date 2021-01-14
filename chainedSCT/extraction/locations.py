@@ -28,8 +28,8 @@ class Location:
                     "id" INTEGER PRIMARY KEY,
                     "date_" character varying(255),
                     "time_" character varying(255),
-                    "x_pos" FLOAT,
-                    "y_pos" FLOAT
+                    "x_pos" character varying(255),
+                    "y_pos" character varying(255)
                 )
                 WITH (OIDS=FALSE);
                 """)

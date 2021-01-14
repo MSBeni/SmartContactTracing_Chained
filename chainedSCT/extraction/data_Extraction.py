@@ -63,7 +63,7 @@ class UsersDataExtraction:
                     time_local = str((datetime.now() - timedelta(seconds=5)).time())
                     # print(date_local, time_local, xy_locations[i][0], xy_locations[i][1], user)
                     # print(type(date_local), type(time_local), type(xy_locations[i][0]), type(xy_locations[i][1]), type(user))
-                    location_ = Location(str(date_local), str(time_local), xy_locations[i][0], xy_locations[i][1], user)
+                    location_ = Location(str(date_local), str(time_local), str(xy_locations[i][0]), str(xy_locations[i][1]), user)
                     location_.save_loc_to_db()
 
 
