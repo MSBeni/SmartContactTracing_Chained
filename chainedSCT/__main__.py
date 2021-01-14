@@ -4,6 +4,7 @@ import json
 from .extraction.user import User
 from .extraction.saved_users import UserDB
 from .extraction.database import Database
+from .extraction.data_Extraction import UsersDataExtraction
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -35,6 +36,9 @@ def main(argv=None):
 
         # User.fetch_data()
         User.fetch_ids()
+
+        # create user location
+        UsersDataExtraction.save_to_db(args)
 
 
     except KeyboardInterrupt:
