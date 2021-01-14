@@ -5,8 +5,8 @@ import random
 
 
 class UsersDataExtraction:
-    def __init__(self, step_size=0.5):
-        self.step_size = step_size
+    # def __init__(self, step_size=0.5):
+    #     self.step_size = step_size
 
     @staticmethod
     def random_users(argument_handler):
@@ -16,15 +16,17 @@ class UsersDataExtraction:
         :return: list of the active user ids
         """
         users_ids = User.fetch_ids()
+
         selected_users = list()
-        for i in range(argument_handler.usersInDay):
-            idx = random.randint(0, argument_handler.numUsers)
+        users_In_Day = random.randint(10, 50)
+        for i in range(users_In_Day):
+            idx = random.randint(0, len(users_ids))
             selected_users.append(users_ids[idx][0])
 
         return selected_users
 
-    @staticmethod
-    def random_user_location(step_size=0.5):
+    @classmethod
+    def random_user_location(cls, step_size=0.5):
         """
         create locations based on defined step size and number of steps in the environment for each user
         :return: list of the positions' tuples
@@ -51,7 +53,7 @@ class UsersDataExtraction:
         :param argument_handler: imported arguments
         :return:
         """
-        location_ = {'user_id': None, 'date_local': None, 'time_local': None, 'X': None, 'Y': None}
+        # location_ = {'user_id': None, 'date_local': None, 'time_local': None, 'X': None, 'Y': None}
         selected_users = cls.random_users(argument_handler)
         for user in selected_users:
             for j in range(argument_handler.numDays):

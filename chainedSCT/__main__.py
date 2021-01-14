@@ -38,7 +38,7 @@ def main(argv=None):
         User.fetch_ids()
 
         # create user location
-        UsersDataExtraction.save_to_db(args)
+        UsersDataExtraction.random_users(args)
 
 
     except KeyboardInterrupt:
