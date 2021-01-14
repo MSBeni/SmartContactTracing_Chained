@@ -9,19 +9,19 @@ class UsersDataExtraction:
     #     self.step_size = step_size
 
     @staticmethod
-    def random_users(argument_handler):
+    def random_users():
         """
         based on the number of the active users in each day, randomly select user ids from user table
         :param argument_handler: imported arguments
         :return: list of the active user ids
         """
-        users_ids = User.fetch_ids()
+        ids_lst = User.load_all_ids_from_db()
 
         selected_users = list()
-        users_In_Day = random.randint(10, 50)
+        users_In_Day = random.randint(10, len(ids_lst[0])-1)
         for i in range(users_In_Day):
-            idx = random.randint(0, len(users_ids))
-            selected_users.append(users_ids[idx][0])
+            idx = random.randint(0, len(ids_lst[0])-1)
+            selected_users.append(ids_lst[0][idx][0])
 
         return selected_users
 

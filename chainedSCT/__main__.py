@@ -37,8 +37,12 @@ def main(argv=None):
         # User.fetch_data()
         User.fetch_ids()
 
+        # Load ids
+        ids_lst = User.load_all_ids_from_db()
+        # print("ids --->", ids_lst)
+
         # create user location
-        UsersDataExtraction.random_users(args)
+        UsersDataExtraction.save_to_db(args)
 
 
     except KeyboardInterrupt:

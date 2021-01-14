@@ -135,3 +135,45 @@ class User:
                 return cls(email=user_data[1], first_name=user_data[2], last_name=user_data[3], id_=user_data[0])
             except:
                 print("Problem in fetching data from db")
+
+
+    @classmethod
+    def load_from_db_by_ids(cls, id_):
+        """
+        Return a user form the database based on specific id
+        email :param str: the email address of the user seeking to return
+        cls :return: cls a currently bound class od thw User
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute('SELECT * FROM users WHERE id=%s', (id_,))
+                user_data = cursor.fetchone()
+                return cls(email=user_data[1], first_name=user_data[2], last_name=user_data[3], id_=user_data[0])
+            except:
+                print("Problem in fetching data from db")
+
+
+    @classmethod
+    def load_all_ids_from_db(cls):
+        """
+        Return a list of all defined ids in the db
+        email :param str: the email address of the user seeking to return
+        cls :return: cls a currently bound class od thw User
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            ids_lst = []
+            try:
+                cursor.execute('SELECT users.id FROM users;')
+                user_data = cursor.fetchall()
+                ids_lst.append(user_data)
+                return ids_lst
+            except:
+                print("Problem in fetching data from db")
