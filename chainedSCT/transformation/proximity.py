@@ -2,16 +2,17 @@ from ..extraction import CursorFromConnectionPool
 
 
 class Proximity:
-    def __init__(self, time_local, init_user_id, sec_user_id, proximity):
-        self.time_local = time_local
-        self.init_user_id = init_user_id
-        self.sec_user_id = sec_user_id
+    def __init__(self, date_local, user_id, contact_user_id, proximity):
+        self.date_local = date_local
+        self.user_id = user_id
+        self.contact_user_id = contact_user_id
         self.proximity = proximity
 
     def __repr__(self):
         return "< User {} >".format(self.init_user_id)
 
-    def create_locations_table(self):
+    @staticmethod
+    def create_proximity_table():
         """
         Create database if it does not exist
         :return:
@@ -23,17 +24,16 @@ class Proximity:
             """
             try:
                 cursor.execute("""
-                CREATE TABLE IF NOT EXISTS "public"."locations"(
-                    "user_id" int4 NOT NULL,
+                CREATE TABLE IF NOT EXISTS "public"."proximity"(
                     "pos_date" DATE NOT NULL,
-                    "pos_time" TIME NOT NULL,
-                    "x_pos"  numeric(10,4),
-                    "y_pos"  numeric(10,4)
+                    "user_id" int4 NOT NULL,
+                    "contact_id" int4 NOT NULL,
+                    "proximity"  numeric(10,4)
                 )
                 WITH (OIDS=FALSE);
                 """)
 
-                print("TABLE {} created".format('locations'))
+                print("TABLE {} created".format('proximity'))
 
             except:
                 print("Unable to create the table!!!")
@@ -51,14 +51,14 @@ class Proximity:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO locations (user_id, pos_date, pos_time, x_pos, y_pos) VALUES '
-                               '(%s, %s, %s, %s, %s);',
-                               (self.user_id, self.date_local, self.time_local, self.x_pos, self.y_pos))
+                cursor.execute('INSERT INTO proximity (pos_date, user_id, contact_id, proximity) VALUES '
+                               '(%s, %s, %s, %s);',
+                               (self.date_local, self.user_id, self.contact_user_id, self.proximity))
             except:
                 print("Unable to add data")
 
     @staticmethod
-    def fetch_loc_data():
+    def fetch_proximity_data():
         """
         Executing the selection of inner data of the table
         :return:
@@ -69,15 +69,15 @@ class Proximity:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                cursor.execute("SELECT * FROM locations;")
+                cursor.execute("SELECT * FROM proximity;")
                 print(cursor.fetchall())
             except:
                 print("Failed to read the table contents ...")
 
     @staticmethod
-    def fetch_loc_ids():
+    def fetch_proximity_ids():
         """
-        Executing the selection of inner id of the locations from the table
+        Executing the selection of inner id of the proximity from the table
         :return:
         """
         with CursorFromConnectionPool() as cursor:
@@ -86,7 +86,7 @@ class Proximity:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                cursor.execute("SELECT locations.user_id FROM locations;")
+                cursor.execute("SELECT proximity.user_id FROM proximity;")
                 print(cursor.fetchall())
             except:
                 print("Failed to read the table contents ...")

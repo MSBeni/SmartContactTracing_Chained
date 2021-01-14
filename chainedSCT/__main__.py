@@ -5,6 +5,7 @@ from .extraction.user import User
 from .extraction.saved_users import UserDB
 from .extraction.database import Database
 from .extraction.location_Extraction import UsersDataExtraction
+from .extraction.locations import Location
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -43,6 +44,8 @@ def main(argv=None):
 
         # create user location
         UsersDataExtraction.save_location_to_db(args)
+
+        Location.fetch_loc_data()
 
 
     except KeyboardInterrupt:

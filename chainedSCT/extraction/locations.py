@@ -12,7 +12,8 @@ class Location:
     def __repr__(self):
         return "< User {} >".format(self.user_id)
 
-    def create_locations_table(self):
+    @staticmethod
+    def create_locations_table():
         """
         Create database if it does not exist
         :return:
@@ -24,6 +25,7 @@ class Location:
             """
             try:
                 cursor.execute("""
+                DROP TABLE IF EXISTS "public"."locations";
                 CREATE TABLE IF NOT EXISTS "public"."locations"(
                     "user_id" int4 NOT NULL,
                     "pos_date" DATE NOT NULL,
