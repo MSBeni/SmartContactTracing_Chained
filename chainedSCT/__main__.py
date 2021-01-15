@@ -16,6 +16,7 @@ def create_parser():
     parser.add_argument('--usersInDay', type=int, default=10, help="Number of active users in each day")
     parser.add_argument('--immediate', type=int, default=1, help="Distance where two users are considered immediate")
     parser.add_argument('--near', type=int, default=5, help="Distance where two users are considered near")
+    parser.add_argument('--nodePort', type=int, default=5001, help="The ")
 
 
     return parser
