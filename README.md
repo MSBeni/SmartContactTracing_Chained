@@ -26,10 +26,25 @@ This README would normally document the content of the Comvest website.
 ## About The Project - Blockchain-Based Smart Contact Tracing (BSCT)
 A data pipeline for Smart Contact Tracing using blockchain in order to store the proximity of the users in an indoor environement.
 - EXTRACT: In this data pipeline the proximity of the users' data is extracted form their handheld mobile devices. This data consist of BLE AoA data and UWB data received from the user devices in an environment.
-- TRANSFORM: 
+Based on this extracted data the proximity of the users in an environment will be calculated. 
+- TRANSFORM: This section is responsible for calculation of the proximity of the users based on the extracted data, e.g., AoA and UWB. Based on the indoor localization applied to these data and the location estimation made for each user, the proximity of the users will be defined and saved to the central database.
+This proximity data based on the defined criteria will be categorized into three types:
+- 1- immediate: for the users with the distance less than 1 meters.
+- 2- near: for the users with the distance between 1 to 5 meters.
+- 3- near: for the users with the distance more than 5 meters.
+
+These extracted data will accompanied with the users id will be fed into the blockchain, to keep it secure and  data cannot be altered or deleted. Since the users with immediate and near proximity are able to infect others, the data of these proximity will be kept on the blockchain.
 
 
 ## About The Dataset
+In order to prepare the data for the localization purposes, we simulate the AoA and UWB data. Our environment assumed to be an 20 meters to 10 meters indoor environment. The maximum number of users considered to walk through this indoor environment can be set in the application, but it is assumed to be a maximum of 50 persons. 
+the test will be held in 21 days. This parameters can also be redifned based on your preferences in the application. A random number of the users (between 10 to 50 persons) will walk in the indoor venue and the localization data of each user is calculated, and along with the data and the time and their ids will be saved into the database. This data base and the credentials related to it ought to be redefined for the users who want to test the system.
+There are 4 different tables defined in the postgresql database which are responsible to save the users data.
+- users table: The data of the users are saved into the users table.
+- locations table: This table save the localization of the users walking in the environment in different days and time domains.
+- proximity table: The proximity status of the users will be saved in this data based on three categories: immediate, near and far
+- Covid_affected table: If a user is infected by the Covid-19, its data will be saved in this table. Only those who have the necessary credentials are able to feed the data and check for the results. The system will be sent an alarm for the users who were immediate or near to the infected user in previous fourteen days.
+
 
 ## Indoor Localization and Proximity Estimation
 
