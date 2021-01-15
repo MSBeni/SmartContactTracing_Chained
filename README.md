@@ -65,7 +65,7 @@ fading.
 
 
 - Fusion Approach:
-The fusion of the above approaches then will be employed 
+The fusion of the above approaches then will be employed to calculate the exact location of the user.
 ## Data Extraction
 The data extraction process consist of different steps mainly focus on the determining the users' location in the environment. The tables users and locations are created in this section. As can be seen in the below figures the data related to each user and their location based on the date, time and their id is saved in the locations table.
 The position data is calculated based on the localization framework comprehensively discussed in both in this repository and the related paper.
@@ -83,7 +83,10 @@ Please consider this important note that you should be able to connect to your p
 
 
 ## Loading Results on Blockchain
-
+In the sense of privacy, confidentiality, and data ownership, the growing volume of personal data poses important concerns. Entities whose data is collected can benefit from processes for controlling the parties who are able to access their data and for auditing those who have accessed their data. These problems are answered by a control processes who manage which data can be fed to blockchain and which access control policy can be considered to access the data.
+In order for the final data to be safe, secure and be resilient to tamper, a blockchain platform is used. This platform mostly prevent the leakage of the users' personal information and their infection status and let the authorized organizations to securely recognize the infected person and all its contacts during the past necessary period of time which is 2 weeks in the case of covid-19.
+The  Blockchain platform by leveraging the encryption principals make the modification of the data a very hard and costly process. A cryptographic signature of the most important data, mainly the keys to access the central datasets can be saved on the blockchain. The un-tampered situation of the files is guarantees without any necessity to store the whole big data on the blockchain. 
+Just some mainly features of the data consisting of the users ids and the immediate and near proximity data will be add as transaction to the blocks.
 
 ## Work with BSCT Library
 
