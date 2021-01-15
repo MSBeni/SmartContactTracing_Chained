@@ -55,7 +55,7 @@ class Proximity:
             try:
                 cursor.execute('INSERT INTO proximity (pos_date, user_id, contact_id, distance, proximity) VALUES '
                                '(%s, %s, %s, %s, %s);',
-                               (self.date_local, self.user_id, self.contact_user_id, self.proximity))
+                               (self.date_local, self.user_id, self.contact_user_id, self.distance, self.proximity))
             except:
                 print("Unable to add data")
 

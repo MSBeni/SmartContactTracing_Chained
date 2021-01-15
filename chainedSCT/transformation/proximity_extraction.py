@@ -44,7 +44,8 @@ class ProximityCALC:
                                 else:
                                     proximity = 'far'
 
-                                proximity = Proximity(date, user, other_users, distance, proximity)
+                                # print(date, user, other_users, distance, proximity)
+                                proximity = Proximity(date, user[0], other_users[0], distance, proximity)
                                 proximity.save_proximity_to_db()
 
 
