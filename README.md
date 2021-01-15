@@ -51,3 +51,15 @@ Please consider this important note that you should be able to connect to your p
 
 
 ## Work with BSCT Library
+
+
+### Exporting your tables into a csv file:
+
+simply use this command to connect to your database:
+```bash
+$ psql --dbname=pyapp --password
+```
+then you can simply run this command to save the table in your preferable address:
+```bash
+\copy locations TO 'YOUR_ADDRESS/locations.csv' DELIMITER ',' CSV HEADER;
+```
