@@ -50,7 +50,9 @@ There are 4 different tables defined in the postgresql database which are respon
 
 
 ## Data Extraction
-
+The data extraction process consist of different steps mainly focus on the determining the users' location in the environment. The tablres users and locations are created in this section. 
+![Alt text](./images/locations_table_sample.png)
+![Alt text](./images/users_table_sample.png)
 ## Database Configuration
 Please consider this important note that you should be able to connect to your postgresql. Use the guidance here: https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/chainedSCT/extraction/README.md
 
