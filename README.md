@@ -2,7 +2,7 @@
 
 This README would normally document the content of the Comvest website. 
 
-![Alt text](./images/logo.png)
+![Alt text](./images/Figure2.png)
 
 
 ### What is this repository for? ###
@@ -47,10 +47,28 @@ There are 4 different tables defined in the postgresql database which are respon
 
 
 ## Indoor Localization and Proximity Estimation
+- AoA-based localization:
+Bluetooth Low Energy (BLE) is one of the key technologies empowering the Internet of Things (IoT) for indoor positioning. In this
+regard, Angle of Arrival (AoA) localization is one of the most reliable techniques because of its low estimation error. BLE-based AoA
+localization, however, is in its infancy as only recently direction-finding feature is introduced to the BLE specification. Furthermore,
+AoA-based approaches are prone to noise, multi-path, and path-loss effects. In this project we proposes an efficient approach for indoor localization framework to tackle these 
+issues specific to BLE-based settings. We consider indoor environments without presence of Line of Sight (LoS) links affected by Additive White Gaussian Noise (AWGN) with different Signal to Noise
+Ratios (SNRs) and Rayleigh fading channel. Moreover, by assuming a 3-D indoor environment, the destructive effect of the elevation
+angle of the incident signal is considered on the position estimation.
+The effectiveness of the proposed framework is evaluated via an experimental testbed, where In-phase/Quadrature (I/Q) samples, modulated by Gaussian Frequency Shift Keying (GFSK), are
+collected by different BLE beacons. Simulation results corroborate effectiveness of the proposed CNN-based AoA technique to track mobile agents with high accuracy in the presence of noise and Rayleigh
+fading. 
+
+- UWB-based localization:
 
 
+
+
+- Fusion Approach:
+The fusion of the above approaches then will be employed 
 ## Data Extraction
-The data extraction process consist of different steps mainly focus on the determining the users' location in the environment. The tablres users and locations are created in this section. 
+The data extraction process consist of different steps mainly focus on the determining the users' location in the environment. The tables users and locations are created in this section. As can be seen in the below figures the data related to each user and their location based on the date, time and their id is saved in the locations table.
+The position data is calculated based on the localization framework comprehensively discussed in both in this repository and the related paper.
 ![Alt text](./images/locations_table_sample.png)
 ![Alt text](./images/users_table_sample.png)
 ## Database Configuration
