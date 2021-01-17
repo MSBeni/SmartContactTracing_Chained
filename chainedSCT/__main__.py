@@ -8,6 +8,11 @@ from .extraction.location_Extraction import UsersDataExtraction
 from .extraction.locations import Location
 from .transformation.proximity_extraction import ProximityCALC
 from .transformation.proximity import Proximity
+from .Loading_Blockchian.test_node import QuotesView
+from flask import Flask, jsonify, request
+from uuid import uuid4
+import requests
+
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -20,7 +25,6 @@ def create_parser():
 
 
     return parser
-
 
 def main(argv=None):
     """
@@ -54,11 +58,20 @@ def main(argv=None):
         # return all location values
         # Location.fetch_loc_data()
 
-        ProximityCALC.prox_calc(args)
-        Proximity.fetch_proximity_data()
+        # ProximityCALC.prox_calc(args)
+        # Proximity.fetch_proximity_data()
 
         # print(contact_dates[0])
         # print(set(contact_dates))
+
+        # Create the Web App
+        app = Flask(__name__)
+        app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
+        QuotesView.register(app)
+
+        app.run(host='0.0.0.0', port=args.nodePort)
+
+
 
 
     except KeyboardInterrupt:

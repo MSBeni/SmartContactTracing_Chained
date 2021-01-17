@@ -19,7 +19,7 @@ class Node:
     # Mining a new block
     @classmethod
     @app.route("/mine_block", methods=['GET'])
-    def mine_block(cls):
+    def mine_block(cls, node_address):
         """
         the app route to mine the new block
         :return: json file of the mined block and the success http code 200
