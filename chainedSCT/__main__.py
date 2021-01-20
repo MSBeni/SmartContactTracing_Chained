@@ -86,6 +86,7 @@ def main(argv=None):
         node_ = Node(ids_lst[0][args.nodePort-5000][0], args.nodePort, "http://127.0.0.1:")
         node_.save_to_db()
         print(Node.load_nodes_url_from_db())
+        print(Node.fetch_nodes())
 
         app.run(host='0.0.0.0', port=args.nodePort)
 
