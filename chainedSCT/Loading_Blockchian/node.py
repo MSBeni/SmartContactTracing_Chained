@@ -129,6 +129,26 @@ class Node:
                 print("Problem in fetching data from db")
 
 
+    @staticmethod
+    def load_port_from_db_by_ids(id_):
+        """
+        Return a node form the database based on specific id
+        id :param str: the email address of the user seeking to return
+        cls :return: cls a currently bound to class Node
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute('SELECT nodes.port, nodes.host FROM nodes WHERE id=%s', (id_,))
+                node_data = cursor.fetchone()
+                return node_data[1]+node_data[0]
+            except:
+                print("Problem in fetching data from db")
+
+
     @classmethod
     def load_all_ids_from_db(cls):
         """

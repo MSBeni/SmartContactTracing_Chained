@@ -12,6 +12,12 @@ blockchain = Blockchain()
 node_address = str(uuid4()).replace('-', '')
 
 
+# class SelfNodeRecognition:
+#     @staticmethod
+#     def self_node(port_='5000'):
+#         return "http://127.0.0.1:" + port_
+
+
 class GetActiveUsers(Resource):
     def get(self):
         users_ = User.fetch_data()
@@ -47,14 +53,17 @@ class GetChain(Resource):   # Getting the full blockchain
 
 
 class NodeConnection(Resource):
-    # parser = reqparse.RequestParser()
-    # parser.add_argument('nodes',
-    #                     type=str,
-    #                     required=True,
-    #                     help='This field cannot be empty')
+    parser = reqparse.RequestParser()
+    parser.add_argument('id',
+                        type=str,
+                        required=True,
+                        help='This field cannot be empty')
 
     def post(self):
+        node_id = AddTransaction.parser.parse_args()
+        itself = Node.load_port_from_db_by_ids(node_id['id'])
         active_nodes = Node.load_nodes_url_from_db()
+        active_nodes.remove(itself)
         data = {'nodes': active_nodes}
         connected_nodes = data.get('nodes')
         if connected_nodes is None:
