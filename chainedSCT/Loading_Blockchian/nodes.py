@@ -1,4 +1,4 @@
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 from ..extraction.user import User
 from flask import Flask, jsonify, request
 from uuid import uuid4
@@ -45,6 +45,25 @@ class GetChain(Resource):   # Getting the full blockchain
         return response, 200
 
 
+class NodeConnection(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('nodes',
+                        type=str,
+                        required=True,
+                        help='This field cannot be empty')
+
+    def post(self):
+        data = NodeConnection.parser.parse_args()
+        connected_nodes = data.get('nodes')
+        if connected_nodes is None:
+            return 'No Node is connected to the network', 400
+        for address in connected_nodes:
+            blockchain.add_node(address=address)
+        response = {'message': 'All the nodes are now connected to the network. These nodes are:',
+                    'total_nodes': list(blockchain.nodes)}
+        return response, 201
+
+
 class ChainValidity(Resource):    # Check the validity of the blockchain
     def get(self):
         if blockchain.is_chain_valid(blockchain.chain):
@@ -58,19 +77,31 @@ class ChainValidity(Resource):    # Check the validity of the blockchain
         return response, 200
 
 
+class AddTransaction(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('sender',
+                        type=str,
+                        required=True,
+                        help='Sender of transaction should be known - This field cannot be empty')
+    parser = reqparse.RequestParser()
+    parser.add_argument('receiver',
+                        type=str,
+                        required=True,
+                        help='Receiver of transaction should be known - This field cannot be empty')
+    parser = reqparse.RequestParser()
+    parser.add_argument('Trace',
+                        type=str,
+                        required=True,
+                        help='The Trace of the contact - This field cannot be empty')
 
-@app.route("/validity", methods=['GET'])
-def is_chain_valid():
-
-    if blockchain.is_chain_valid(blockchain.chain):
-        response = {
-            'message': "The Chain is VALID ...",
-        }
-    else:
-        response = {
-            'message': "WARNING ... The Chain is NOT VALID ...",
-        }
-    return jsonify(response), 200
+    def post(self):
+        data = AddTransaction.parser.parse_args()
+        trans_keys = ['sender', 'receiver', 'trace']
+        if not all(key in data for key in trans_keys):
+            return 'some elements of the transaction is missing', 400
+        transaction_index = blockchain.add_transaction(data['sender'], data['receiver'], data['trace'])
+        response = f'This transaction is confirmed to be added to block {transaction_index}'
+        return {'message': response}, 201
 
 
 # Added the transaction which is mined to the blockchain
@@ -85,18 +116,7 @@ def add_transaction():
     return jsonify(response), 201
 
 
-# Connecting all the nodes in the network
-@app.route("/connect_nodes", methods=['POST'])
-def node_connection():
-    _json = request.get_json()
-    connected_nodes = _json.get('nodes')
-    if connected_nodes is None:
-        return 'No Node is connected to the network', 400
-    for address in connected_nodes:
-        blockchain.add_node(address=address)
-    response = {'message': 'All the nodes are now connected to the network. These nodes are:',
-                'total_nodes': list(blockchain.nodes)}
-    return jsonify(response), 201
+
 
 
 # Check the longest chain and replace it if necessary
