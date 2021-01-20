@@ -24,7 +24,7 @@ def create_parser():
     parser.add_argument('--usersInDay', type=int, default=10, help="Number of active users in each day")
     parser.add_argument('--immediate', type=int, default=1, help="Distance where two users are considered immediate")
     parser.add_argument('--near', type=int, default=5, help="Distance where two users are considered near")
-    parser.add_argument('--nodePort', type=int, default=5001, help="The ")
+    parser.add_argument('--nodePort', type=int, default=5000, help="The ")
 
 
     return parser
@@ -81,9 +81,14 @@ def main(argv=None):
         api.add_resource(AddTransaction, '/add_transaction')
         api.add_resource(ReplaceLongChain, '/replace_long_chain')
 
+        if args.nodePort == 5000:
+            Node.create_nodes_table()
+        node_ = Node(ids_lst[args.nodePort-5000][0], args.nodePort, "http://127.0.0.1:")
+        node_.save_to_db()
+        node_.fetch_nodes()
+
         app.run(host='0.0.0.0', port=args.nodePort)
-        Node.create_nodes_table()
-        node_ = Node(ids_lst[args.nodePort-5000][0], args.nodePort, )
+
 
 
 

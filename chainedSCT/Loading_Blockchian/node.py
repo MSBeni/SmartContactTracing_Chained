@@ -23,6 +23,7 @@ class Node:
             """
             try:
                 cursor.execute("""
+                DROP TABLE IF EXISTS "public"."nodes";
                 CREATE TABLE IF NOT EXISTS "public"."nodes"(
                     "id" INTEGER PRIMARY KEY,
                     "port" character varying(255),
@@ -107,7 +108,6 @@ class Node:
                 return cls(id_=node_data[0], port=node_data[1], host=node_data[2])
             except:
                 print("Problem in fetching data from db")
-
 
     @classmethod
     def load_from_db_by_ids(cls, id_):
