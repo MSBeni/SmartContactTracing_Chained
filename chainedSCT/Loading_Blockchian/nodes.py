@@ -11,7 +11,8 @@ blockchain = Blockchain()
 # Create an add address for the node 5000
 node_address = str(uuid4()).replace('-', '')
 
-class Node(Resource):
+
+class GetActiveUsers(Resource):
     def get(self):
         users_ = User.fetch_data()
         return {'users': users_}, 200

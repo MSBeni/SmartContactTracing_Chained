@@ -8,9 +8,10 @@ from .extraction.location_Extraction import UsersDataExtraction
 from .extraction.locations import Location
 from .transformation.proximity_extraction import ProximityCALC
 from .transformation.proximity import Proximity
-from .Loading_Blockchian.nodes import Node, MineBlockchain, GetChain, ChainValidity, NodeConnection, AddTransaction, \
+from .Loading_Blockchian.nodes import GetActiveUsers, MineBlockchain, GetChain, ChainValidity, NodeConnection, AddTransaction, \
     ReplaceLongChain
-from flask import Flask, jsonify, request
+from .Loading_Blockchian.node import Node
+from flask import Flask
 from flask_restful import Api
 from uuid import uuid4
 import requests
@@ -72,7 +73,7 @@ def main(argv=None):
 
         api = Api(app)
 
-        api.add_resource(Node, '/')
+        api.add_resource(GetActiveUsers, '/users')
         api.add_resource(MineBlockchain, '/mine_block')
         api.add_resource(GetChain, '/get_chain')
         api.add_resource(ChainValidity, '/validity')
@@ -81,6 +82,8 @@ def main(argv=None):
         api.add_resource(ReplaceLongChain, '/replace_long_chain')
 
         app.run(host='0.0.0.0', port=args.nodePort)
+        Node.create_nodes_table()
+
 
 
 

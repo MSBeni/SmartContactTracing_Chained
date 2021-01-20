@@ -1,7 +1,7 @@
 from ..extraction.database import CursorFromConnectionPool
 
 
-class User:
+class Node:
     def __init__(self, id_, port, url):
         self.id = id_
         self.port = port
