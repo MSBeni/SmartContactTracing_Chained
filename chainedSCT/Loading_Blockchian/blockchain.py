@@ -122,6 +122,7 @@ class Blockchain:
         LenMaxCHAIN = len(self.chain)
         for node in current_network:
             rep = requests.get(f'http://{node}/get_chain')
+            print(rep)
             if rep.status_code == 200:
                 _Len_ = rep.json()['length']
                 _Chain_ = rep.json()['chain']
