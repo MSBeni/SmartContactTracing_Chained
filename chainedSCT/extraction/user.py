@@ -95,7 +95,7 @@ class User:
             """
             try:
                 cursor.execute("SELECT * FROM users;")
-                print(cursor.fetchall())
+                return cursor.fetchall()
             except:
                 print("Failed to read the table contents ...")
 

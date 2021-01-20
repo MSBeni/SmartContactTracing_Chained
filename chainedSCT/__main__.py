@@ -9,7 +9,9 @@ from .extraction.locations import Location
 from .transformation.proximity_extraction import ProximityCALC
 from .transformation.proximity import Proximity
 from .Loading_Blockchian.test_node import QuotesView
+from .Loading_Blockchian.nodes import Node
 from flask import Flask, jsonify, request
+from flask_restful import Api
 from uuid import uuid4
 import requests
 
@@ -67,7 +69,12 @@ def main(argv=None):
         # Create the Web App
         app = Flask(__name__)
         app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
-        QuotesView.register(app)
+        # QuotesView.register(app)
+
+        api = Api(app)
+
+        api.add_resource(Node, '/')
+
 
         app.run(host='0.0.0.0', port=args.nodePort)
 
