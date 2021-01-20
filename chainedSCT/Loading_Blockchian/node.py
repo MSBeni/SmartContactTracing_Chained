@@ -165,7 +165,8 @@ class Node:
             try:
                 cursor.execute('SELECT nodes.port, nodes.host FROM nodes;')
                 node_data = cursor.fetchall()
-                nodes_lst.append(node_data)
+                for el in node_data:
+                    nodes_lst.append(el[1]+el[0])
                 return nodes_lst
             except:
                 print("Problem in fetching data from db")
