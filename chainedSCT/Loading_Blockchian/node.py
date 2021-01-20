@@ -24,10 +24,10 @@ class Node:
             try:
                 cursor.execute("""
                 DROP TABLE IF EXISTS "public"."nodes";
-                CREATE TABLE IF NOT EXISTS "public"."nodes"(
+                CREATE TABLE "public"."nodes"(
                     "id" INTEGER PRIMARY KEY,
                     "port" character varying(255),
-                    "host" character varying(255),
+                    "host" character varying(255)
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -143,6 +143,27 @@ class Node:
             nodes_lst = []
             try:
                 cursor.execute('SELECT nodes.id FROM nodes;')
+                node_data = cursor.fetchall()
+                nodes_lst.append(node_data)
+                return nodes_lst
+            except:
+                print("Problem in fetching data from db")
+
+
+    @classmethod
+    def load_nodes_url_from_db(cls):
+        """
+        Return a list of all defined ids in the db
+        cls :return: cls a currently bound class od thw User
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            nodes_lst = []
+            try:
+                cursor.execute('SELECT nodes.port, nodes.host FROM nodes;')
                 node_data = cursor.fetchall()
                 nodes_lst.append(node_data)
                 return nodes_lst

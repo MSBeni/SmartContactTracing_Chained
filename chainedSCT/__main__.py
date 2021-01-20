@@ -46,14 +46,14 @@ def main(argv=None):
         # user = User('patriciarobinson@gmail.com', 'Samantha', 'Gallegos', 66048763)
         # UserDB.users_submission(args)
 
-        print(args.numUsers)
+        # print(args.numUsers)
 
         # User.fetch_data()
-        User.fetch_ids()
+        # User.fetch_ids()
 
         # Load ids
         ids_lst = User.load_all_ids_from_db()
-        # print("ids --->", ids_lst)
+        # print("ids --->", ids_lst[0])
 
         # create user location
         # UsersDataExtraction.save_location_to_db(args)
@@ -83,9 +83,9 @@ def main(argv=None):
 
         if args.nodePort == 5000:
             Node.create_nodes_table()
-        node_ = Node(ids_lst[args.nodePort-5000][0], args.nodePort, "http://127.0.0.1:")
+        node_ = Node(ids_lst[0][args.nodePort-5000][0], args.nodePort, "http://127.0.0.1:")
         node_.save_to_db()
-        node_.fetch_nodes()
+        print(node_.fetch_nodes())
 
         app.run(host='0.0.0.0', port=args.nodePort)
 
