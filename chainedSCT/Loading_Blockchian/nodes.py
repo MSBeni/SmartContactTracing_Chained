@@ -2,7 +2,7 @@ from flask_restful import Resource, reqparse
 from ..extraction.user import User
 from flask import Flask, jsonify, request
 from uuid import uuid4
-import requests
+from .node import Node
 from .blockchain import Blockchain
 
 # Create Blockchain
@@ -55,7 +55,7 @@ class NodeConnection(Resource):
 
     def post(self):
         data = NodeConnection.parser.parse_args()
-        # active_nodes =
+        active_nodes = Node.load_nodes_url_from_db()
         connected_nodes = data.get('nodes')
         if connected_nodes is None:
             return 'No Node is connected to the network', 400

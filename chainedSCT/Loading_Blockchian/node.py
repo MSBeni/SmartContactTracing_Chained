@@ -150,8 +150,8 @@ class Node:
                 print("Problem in fetching data from db")
 
 
-    @classmethod
-    def load_nodes_url_from_db(cls):
+    @staticmethod
+    def load_nodes_url_from_db():
         """
         Return a list of all defined ids in the db
         cls :return: cls a currently bound class od thw User
