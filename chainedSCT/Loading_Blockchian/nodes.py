@@ -89,7 +89,7 @@ class AddTransaction(Resource):
                         required=True,
                         help='Receiver of transaction should be known - This field cannot be empty')
     parser = reqparse.RequestParser()
-    parser.add_argument('Trace',
+    parser.add_argument('trace',
                         type=str,
                         required=True,
                         help='The Trace of the contact - This field cannot be empty')
