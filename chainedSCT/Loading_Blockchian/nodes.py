@@ -60,7 +60,7 @@ class NodeConnection(Resource):
                         help='This field cannot be empty')
 
     def post(self):
-        node_id = AddTransaction.parser.parse_args()
+        node_id = NodeConnection.parser.parse_args()
         itself = Node.load_port_from_db_by_ids(node_id['id'])
         active_nodes = Node.load_nodes_url_from_db()
         active_nodes.remove(itself)
