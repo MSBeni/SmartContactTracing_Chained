@@ -77,6 +77,7 @@ def main(argv=None):
         api.add_resource(ChainValidity, '/validity')
         api.add_resource(NodeConnection, '/connect_nodes')
         api.add_resource(AddTransaction, '/add_transaction')
+        api.add_resource(AddTransaction, '/add_transaction')
 
         app.run(host='0.0.0.0', port=args.nodePort)
 

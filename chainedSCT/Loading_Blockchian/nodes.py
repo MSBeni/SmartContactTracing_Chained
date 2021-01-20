@@ -104,38 +104,20 @@ class AddTransaction(Resource):
         return {'message': response}, 201
 
 
-# Added the transaction which is mined to the blockchain
-@app.route("/add_transaction", methods=['POST'])
-def add_transaction():
-    _json_ = request.get_json()
-    trans_keys = ['sender', 'receiver', 'trace']
-    if not all(key in _json_ for key in trans_keys):
-        return 'some elements of the transaction is missing', 400
-    _index_ = blockchain.add_transaction(_json_['sender'], _json_['receiver'], _json_['trace'])
-    response = f'This transaction is confirmed to be added to block {_index_}'
-    return jsonify(response), 201
+class ReplaceLongChain(Resource):
+    def get(self):
+        is_longestChain_replaced = blockchain.replace_chain()
+        if is_longestChain_replaced:
+            response = {'message': 'There was another longest chain and it is replaced now',
+                        'new_chain': blockchain.chain}
+        else:
+            response = {'message': 'We are good. Current chain is the longest one',
+                        'current_chain': blockchain.chain}
+
+        return response, 201
 
 
 
-
-
-# Check the longest chain and replace it if necessary
-@app.route('/LongChain_replace', methods=['GET'])
-def replace_long_chain():
-    is_longestChain_replaced = blockchain.replace_chain()
-    if is_longestChain_replaced:
-        response = {'message': 'There was another longest chain and it is replaced now',
-                    'new_chain': blockchain.chain}
-    else:
-        response = {'message': 'We are good. Current chain is the longest one',
-                    'current_chain': blockchain.chain}
-
-    return jsonify(response), 201
-
-
-# running the app
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
 
 
 
