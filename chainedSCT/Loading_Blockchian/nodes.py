@@ -45,15 +45,20 @@ class GetChain(Resource):   # Getting the full blockchain
         return response, 200
 
 
+class ChainValidity(Resource):    # Check the validity of the blockchain
+    def get(self):
+        if blockchain.is_chain_valid(blockchain.chain):
+            response = {
+                'message': "The Chain is VALID ...",
+            }
+        else:
+            response = {
+                'message': "WARNING ... The Chain is NOT VALID ...",
+            }
+        return response, 200
 
-@app.route("/get_chain", methods=['GET'])
-def get_chain():
-    response = {'chain': blockchain.chain,
-                'length': len(blockchain.chain)}
-    return jsonify(response), 200
 
 
-# Check the validity of the blockchain
 @app.route("/validity", methods=['GET'])
 def is_chain_valid():
 
