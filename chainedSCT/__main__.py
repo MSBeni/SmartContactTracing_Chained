@@ -8,7 +8,8 @@ from .extraction.location_Extraction import UsersDataExtraction
 from .extraction.locations import Location
 from .transformation.proximity_extraction import ProximityCALC
 from .transformation.proximity import Proximity
-from .Loading_Blockchian.nodes import Node, MineBlockchain, GetChain, ChainValidity, NodeConnection, AddTransaction
+from .Loading_Blockchian.nodes import Node, MineBlockchain, GetChain, ChainValidity, NodeConnection, AddTransaction, \
+    ReplaceLongChain
 from flask import Flask, jsonify, request
 from flask_restful import Api
 from uuid import uuid4
@@ -77,7 +78,7 @@ def main(argv=None):
         api.add_resource(ChainValidity, '/validity')
         api.add_resource(NodeConnection, '/connect_nodes')
         api.add_resource(AddTransaction, '/add_transaction')
-        api.add_resource(AddTransaction, '/add_transaction')
+        api.add_resource(ReplaceLongChain, '/replace_long_chain')
 
         app.run(host='0.0.0.0', port=args.nodePort)
 
