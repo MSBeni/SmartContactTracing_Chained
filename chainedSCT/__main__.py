@@ -83,6 +83,7 @@ def main(argv=None):
 
         app.run(host='0.0.0.0', port=args.nodePort)
         Node.create_nodes_table()
+        node_ = Node(ids_lst[args.nodePort-5000][0], args.nodePort, )
 
 
 

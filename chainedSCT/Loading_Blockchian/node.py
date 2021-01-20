@@ -2,10 +2,10 @@ from ..extraction.database import CursorFromConnectionPool
 
 
 class Node:
-    def __init__(self, id_, port, url):
+    def __init__(self, id_, port, host):
         self.id = id_
         self.port = port
-        self.url = url
+        self.host = host
 
     def __repr__(self):
         return "< User {} >".format(self.id)
@@ -26,7 +26,7 @@ class Node:
                 CREATE TABLE IF NOT EXISTS "public"."nodes"(
                     "id" INTEGER PRIMARY KEY,
                     "port" character varying(255),
-                    "url" character varying(255),
+                    "host" character varying(255),
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -49,8 +49,8 @@ class Node:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO nodes (id, port, url) VALUES (%s, %s, %s);',
-                               (self.id, self.port, self.url))
+                cursor.execute('INSERT INTO nodes (id, port, host) VALUES (%s, %s, %s);',
+                               (self.id, self.port, self.host))
             except:
                 print("Unable to add data")
 
@@ -104,7 +104,7 @@ class Node:
             try:
                 cursor.execute('SELECT * FROM users WHERE email=%s', (port,))
                 node_data = cursor.fetchone()
-                return cls(id_=node_data[0], port=node_data[1], url=node_data[2])
+                return cls(id_=node_data[0], port=node_data[1], host=node_data[2])
             except:
                 print("Problem in fetching data from db")
 
@@ -123,8 +123,8 @@ class Node:
             """
             try:
                 cursor.execute('SELECT * FROM nodes WHERE id=%s', (id_,))
-                user_data = cursor.fetchone()
-                return cls(email=user_data[1], first_name=user_data[2], last_name=user_data[3], id_=user_data[0])
+                node_data = cursor.fetchone()
+                return cls(id_=node_data[0], port=node_data[1], host=node_data[2])
             except:
                 print("Problem in fetching data from db")
 
