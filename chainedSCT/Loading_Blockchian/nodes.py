@@ -54,8 +54,8 @@ class NodeConnection(Resource):
     #                     help='This field cannot be empty')
 
     def post(self):
-        data = NodeConnection.parser.parse_args()
         active_nodes = Node.load_nodes_url_from_db()
+        data = {'nodes': active_nodes}
         connected_nodes = data.get('nodes')
         if connected_nodes is None:
             return 'No Node is connected to the network', 400
