@@ -293,16 +293,13 @@ class AuthorizedUsers:
                 print("Failed to read the table contents ...")
 
 
-
-
-class AuthorizedUsers:
-    def __init__(self, user_id, username, password):
+class AuthAcceptedUsers:
+    def __init__(self, user_id, password):
         self.user_id = user_id
-        self.username = username
         self.password = password
 
     @staticmethod
-    def create_authorization_table():
+    def create_iupmanagers_table():
         """
         Create database if it does not exist
         :return:
@@ -314,9 +311,8 @@ class AuthorizedUsers:
             """
             try:
                 cursor.execute("""
-                CREATE TABLE IF NOT EXISTS "public"."authorization"(
+                CREATE TABLE IF NOT EXISTS "public"."iupmanagers"(
                     "user_id" int4 NOT NULL,
-                    "username" text NOT NULL,
                     "password" text NOT NULL,
                 )
                 WITH (OIDS=FALSE);
@@ -327,7 +323,7 @@ class AuthorizedUsers:
             except:
                 print("Unable to create the table!!!")
 
-    def save_authorized_users_to_db(self):
+    def save_accepted_auth_to_db(self):
         """
         Save the inserted data into the database
         :return:
@@ -340,8 +336,8 @@ class AuthorizedUsers:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO authorization (user_id, username, password) VALUES '
-                               '(%s, %s, %s);',
-                               (self.user_id, self.username, self.password))
+                cursor.execute('INSERT INTO iupmanagers (user_id, password) VALUES '
+                               '(%s, %s);',
+                               (self.user_id, self.password))
             except:
                 print("Unable to add data")
