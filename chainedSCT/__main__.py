@@ -8,7 +8,7 @@ from .extraction.location_Extraction import UsersDataExtraction
 from .extraction.locations import Location
 from .transformation.proximity_extraction import ProximityCALC
 from .transformation.proximity import Proximity
-from .Loading_Blockchian.nodes import GetActiveUsers, MineBlockchain, GetChain, ChainValidity, NodeConnection, \
+from .Loading_Blockchian.resources import GetActiveUsers, MineBlockchain, GetChain, ChainValidity, NodeConnection, \
     AddTransaction, ReplaceLongChain, GetActiveNodes
 from .Loading_Blockchian.node import Node
 from flask import Flask
