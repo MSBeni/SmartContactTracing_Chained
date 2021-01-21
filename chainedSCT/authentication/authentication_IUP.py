@@ -212,7 +212,7 @@ class AuthorizedUsers:
         self.password = password
 
     @staticmethod
-    def create_authorization_table():
+    def create_authcheck_table():
         """
         Create database if it does not exist
         :return:
@@ -224,7 +224,7 @@ class AuthorizedUsers:
             """
             try:
                 cursor.execute("""
-                CREATE TABLE IF NOT EXISTS "public"."authorization"(
+                CREATE TABLE IF NOT EXISTS "public"."authcheck"(
                     "user_id" int4 NOT NULL,
                     "username" text NOT NULL,
                     "password" text NOT NULL,
@@ -250,7 +250,7 @@ class AuthorizedUsers:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO authorization (user_id, username, password) VALUES '
+                cursor.execute('INSERT INTO authcheck (user_id, username, password) VALUES '
                                '(%s, %s, %s);',
                                (self.user_id, self.username, self.password))
             except:
@@ -268,7 +268,7 @@ class AuthorizedUsers:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                cursor.execute("SELECT authorization.user_id FROM authorization;")
+                cursor.execute("SELECT authcheck.user_id FROM authcheck;")
                 return cursor.fetchall()
             except:
                 print("Failed to read the table contents ...")
@@ -286,7 +286,7 @@ class AuthorizedUsers:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                cursor.execute("SELECT authorization.password FROM authorization WHERE authorization.username=?;",
+                cursor.execute("SELECT authcheck.password FROM authcheck WHERE authcheck.username=?;",
                                (id_,))
                 return cursor.fetchone()
             except:
