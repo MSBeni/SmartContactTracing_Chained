@@ -341,3 +341,28 @@ class AuthAcceptedUsers:
                                (self.user_id, self.password))
             except:
                 print("Unable to add data")
+
+
+    @classmethod
+    def get_auth_user_by_id(cls, id_):
+        """
+        Executing the selection of inner data of the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                result = cursor.execute("SELECT * FROM iupmanagers WHERE iupmanagers.id_=?;", (id_,))
+                user_ = result.fetchone()
+                if user_:
+                    user_f = cls(*user_)
+
+                else:
+                    user_f = None
+            except:
+                print("Failed to read the table contents ...")
+
+        return user_f
