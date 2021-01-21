@@ -125,8 +125,8 @@ class Infection:
             """
             uniqe_users_in_a_day = []
             try:
-                cursor.execute("SELECT infection.user_id FROM infection WHERE infection.pos_date=(%s);",
-                               (date,))
+                cursor.execute("SELECT infection.user_id FROM infection WHERE infection.status=true AND "
+                               "infection.date_=?;", (date,))
                 all_users_id = cursor.fetchall()
                 uniqe_users_in_a_day.append(all_users_id)
                 return uniqe_users_in_a_day
@@ -134,25 +134,12 @@ class Infection:
                 print("Failed to read the table contents ...")
 
 
-    @staticmethod
-    def fetch_positive_infected_users(date, _user_id):
-        """
-        Executing the selection of inner id of the proximity from the table
-        :return:
-        """
-        with CursorFromConnectionPool() as cursor:
-            """
-            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
-            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
-            """
-            user_location_in_a_day = []
-            try:
-                cursor.execute("SELECT infection.user_id, infection.date FROM infection WHERE infection.pos_date=(%s) AND locations.user_id=(%s);", (date, _user_id))
-                all_users_locs = cursor.fetchall()
-                user_location_in_a_day.append(all_users_locs)
-                return user_location_in_a_day
-            except:
-                print("Failed to read the table contents ...")
+
+class IUP:
+    def __init__(self, id_, infection_date):
+        self.id = id_
+        self.infection_date = infection_date
+
 
 
 
