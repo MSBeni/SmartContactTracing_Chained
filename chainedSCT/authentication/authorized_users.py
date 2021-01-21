@@ -1,7 +1,8 @@
 from flask_restful import Resource, reqparse
+from .create_authorized_users import AuthUser
+from .authentication_IUP import AuthorizedUsers
 
-
-class UserRegister(Resource):
+class UserCredentialCheck(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('username',
                         type=str,
@@ -14,16 +15,13 @@ class UserRegister(Resource):
                         help='The password field cannot be empty')
 
     def post(self):
-        reg_credential = UserRegister.parser.parse_args()
+        reg_credential = UserCredentialCheck.parser.parse_args()
 
-        if User.get_user_by_username(reg_credential['username']):
-            return {"message": "This Username already exists, please try another username"}, 400
-        connection = sqlite3.connect('data.db')
-        cur = connection.cursor()
+        if reg_credential['username'] not in AuthUser:
+            return {"message": "You are not specified as an authorized user"}, 400
 
-        cur.execute("INSERT INTO users VALUES (NULL,?,?)", (reg_credential['username'], reg_credential['password']))
+        elif reg_credential['password'] == AuthorizedUsers.password_check_for_id(reg_credential['username']):
+            return True
 
-        connection.commit()
-        connection.close()
+        return {"message": "User {} is noe allowed to have this access".format(reg_credential['username'])}, 400
 
-        return {"message": "User {} is created successfully".format(reg_credential['username'])}, 201

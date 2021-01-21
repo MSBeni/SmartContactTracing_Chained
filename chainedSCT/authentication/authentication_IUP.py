@@ -272,3 +272,22 @@ class AuthorizedUsers:
                 return cursor.fetchall()
             except:
                 print("Failed to read the table contents ...")
+
+
+    @staticmethod
+    def password_check_for_id(id_):
+        """
+        Executing the selection of inner data of the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT authorization.password FROM authorization WHERE authorization.username=?;",
+                               (id_,))
+                return cursor.fetchone()
+            except:
+                print("Failed to read the table contents ...")
