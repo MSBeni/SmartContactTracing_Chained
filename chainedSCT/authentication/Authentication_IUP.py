@@ -134,12 +134,73 @@ class Infection:
                 print("Failed to read the table contents ...")
 
 
-
 class IUP:
     def __init__(self, id_, infection_date):
         self.id = id_
         self.infection_date = infection_date
 
+    def __repr__(self):
+        return "< User {} >".format(self.user_id)
 
+    @staticmethod
+    def create_infection_table():
+        """
+        Create database if it does not exist
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("""
+                DROP TABLE IF EXISTS "public"."iup";
+                CREATE TABLE IF NOT EXISTS "public"."iup"(
+                    "id" int4 NOT NULL,
+                    "infection_date" TIME NOT NULL,
+                )
+                WITH (OIDS=FALSE);
+                """)
 
+                print("TABLE {} created".format('locations'))
+
+            except:
+                print("Unable to create the table!!!")
+
+    def save_loc_to_db(self):
+        """
+        Save the inserted data into the database
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            --> Note: ConnectionFromPool() is no longer a direct connection so does not commit any more using 'with'
+            so we should add the commit to the ConnectionFromPool class
+            """
+            try:
+                cursor.execute('INSERT INTO iup (id, infection_date) VALUES '
+                               '(%s, %s);',
+                               (self.id, self.infection_date))
+            except:
+                print("Unable to add data")
+
+    @staticmethod
+    def fetch_iup_data():
+        """
+        Executing the selection of inner data of the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT * FROM iup;")
+                return cursor.fetchall()
+            except:
+                print("Failed to read the table contents ...")
 
