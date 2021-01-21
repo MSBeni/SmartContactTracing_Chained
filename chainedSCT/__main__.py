@@ -88,11 +88,10 @@ def main(argv=None):
         node_.save_to_db()
         print(Node.load_nodes_url_from_db())
         print(Node.fetch_nodes())
+        authorized_users = json.loads(open('../../authorized_users.json', 'r').read())
+        print(len(authorized_users.keys()))
 
         app.run(host='0.0.0.0', port=args.nodePort)
-
-
-
 
 
 
