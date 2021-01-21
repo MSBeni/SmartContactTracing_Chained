@@ -12,16 +12,16 @@ blockchain = Blockchain()
 node_address = str(uuid4()).replace('-', '')
 
 
-# class SelfNodeRecognition:
-#     @staticmethod
-#     def self_node(port_='5000'):
-#         return "http://127.0.0.1:" + port_
-
-
 class GetActiveUsers(Resource):
     def get(self):
         users_ = User.fetch_data()
         return {'users': users_}, 200
+
+
+class GetActiveNodes(Resource):
+    def get(self):
+        nodes_ = Node.fetch_nodes()
+        return {'users': nodes_}, 200
 
 
 class MineBlockchain(Resource):
