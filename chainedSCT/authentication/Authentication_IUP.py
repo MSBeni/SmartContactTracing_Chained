@@ -204,3 +204,71 @@ class IUP:
             except:
                 print("Failed to read the table contents ...")
 
+
+class AuthorizedUsers:
+    def __init__(self, user_id, username, password):
+        self.user_id = user_id
+        self.username = username
+        self.password = password
+
+    @staticmethod
+    def create_authorization_table():
+        """
+        Create database if it does not exist
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("""
+                CREATE TABLE IF NOT EXISTS "public"."authorization"(
+                    "user_id" int4 NOT NULL,
+                    "username" text NOT NULL,
+                    "password" text NOT NULL,
+                )
+                WITH (OIDS=FALSE);
+                """)
+
+                print("TABLE {} created".format('locations'))
+
+            except:
+                print("Unable to create the table!!!")
+
+    def save_authorized_users_to_db(self):
+        """
+        Save the inserted data into the database
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            --> Note: ConnectionFromPool() is no longer a direct connection so does not commit any more using 'with'
+            so we should add the commit to the ConnectionFromPool class
+            """
+            try:
+                cursor.execute('INSERT INTO authorization (user_id, username, password) VALUES '
+                               '(%s, %s, %s);',
+                               (self.user_id, self.username, self.password))
+            except:
+                print("Unable to add data")
+
+    @staticmethod
+    def fetch_authorized_id():
+        """
+        Executing the selection of inner data of the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT authorization.user_id FROM authorization;")
+                return cursor.fetchall()
+            except:
+                print("Failed to read the table contents ...")
