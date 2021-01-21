@@ -1,6 +1,5 @@
 from flask_restful import Resource, reqparse
 from ..extraction.user import User
-from flask import Flask, jsonify, request
 from uuid import uuid4
 from .node import Node
 from .blockchain import Blockchain
