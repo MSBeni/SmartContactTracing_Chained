@@ -347,8 +347,8 @@ class AuthAcceptedUsers:
                 print("Unable to add data")
 
 
-    @staticmethod
-    def get_auth_user_by_id(identity):
+    @classmethod
+    def get_authenticated_user_by_id(cls, identity):
         """
         Executing the selection of inner data of the table
         :return:
@@ -361,8 +361,9 @@ class AuthAcceptedUsers:
             try:
                 cursor.execute("SELECT * FROM iupmanagers WHERE user_id=%s;", (identity,))
                 user_ = cursor.fetchone()
+                print(*user_)
                 if user_:
-                    user_f = {"user_id": user_[0], "password": user_[1]}
+                    user_f = cls(*user_)
                 else:
                     user_f = None
 
