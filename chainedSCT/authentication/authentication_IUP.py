@@ -315,7 +315,8 @@ class AuthAcceptedUsers:
             """
             try:
                 cursor.execute("""
-                CREATE TABLE IF NOT EXISTS "public"."iupmanagers"(
+                DROP TABLE IF EXISTS "public"."iupmanagers";
+                CREATE TABLE "public"."iupmanagers"(
                     "user_id" int4 NOT NULL,
                     "password" text NOT NULL
                 )
@@ -346,8 +347,8 @@ class AuthAcceptedUsers:
                 print("Unable to add data")
 
 
-    @classmethod
-    def get_auth_user_by_id(cls, id_):
+    @staticmethod
+    def get_auth_user_by_id(identity):
         """
         Executing the selection of inner data of the table
         :return:
@@ -358,14 +359,33 @@ class AuthAcceptedUsers:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                result = cursor.execute("SELECT * FROM iupmanagers WHERE iupmanagers.id_=%s", (id_,))
-                user_ = result.fetchone()
+                cursor.execute("SELECT * FROM iupmanagers WHERE user_id=%s;", (identity,))
+                user_ = cursor.fetchone()
                 if user_:
-                    user_f = cls(*user_)
-
+                    user_f = {"user_id": user_[0], "password": user_[1]}
                 else:
                     user_f = None
-            except:
-                print("Failed to read the table {} contents ...".format('iupmanagers'))
 
-        return user_f
+                return user_f
+            except:
+                return "Failed to read the table {} contents ...".format('iupmanagers')
+
+
+    @staticmethod
+    def fetch_All_authorized_IUP(identity):
+        """
+        Executing the selection of inner data of the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT * FROM iupmanagers WHERE user_id=%s;", (identity,))
+                return cursor.fetchone()
+            except:
+                print("Failed to read the table contents ...")
+
+

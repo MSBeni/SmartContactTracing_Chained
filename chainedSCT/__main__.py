@@ -95,7 +95,8 @@ def main(argv=None):
         print(Node.load_nodes_url_from_db())
         print(Node.fetch_nodes())
 
-        print(AuthUser.save_auth_user())
+
+
 
         app.run(host='0.0.0.0', port=args.nodePort)
 
