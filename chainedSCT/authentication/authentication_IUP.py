@@ -168,7 +168,7 @@ class IUP:
             except:
                 print("Unable to create the table!!!")
 
-    def save_loc_to_db(self):
+    def save_infected_users_to_db(self):
         """
         Save the inserted data into the database
         :return:
