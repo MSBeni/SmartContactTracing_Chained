@@ -17,6 +17,7 @@ class UserCredentialCheck(Resource):
                         help='The password field cannot be empty')
 
     def post(self):
+        # Reading the authorized users' information from the private file
         AuthUser.save_auth_user()
         AuthAcceptedUsers.create_iupmanagers_table()
         reg_credential = UserCredentialCheck.parser.parse_args()
