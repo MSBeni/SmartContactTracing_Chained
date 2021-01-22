@@ -316,6 +316,25 @@ class AuthorizedUsers:
                 print("Failed to read the table contents ...")
 
 
+    @staticmethod
+    def id_check_for_username(username_):
+        """
+        Executing the selection of inner data of the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT authcheck.user_id FROM authcheck WHERE username=%s", (username_,))
+                return cursor.fetchone()
+
+            except:
+                print("Failed to read the table contents ...")
+
+
 class AuthAcceptedUsers:
     def __init__(self, user_id, username, password):
         self.user_id = user_id

@@ -23,7 +23,8 @@ class UserCredentialCheck(Resource):
             return {"message": "You are not specified as an authorized user"}, 400
 
         elif reg_credential['password'] == AuthorizedUsers.password_check_for_username(reg_credential['username'])[0]:
-            accepted_user = AuthAcceptedUsers(reg_credential['username'], reg_credential['password'])
+            accepted_user = AuthAcceptedUsers(AuthorizedUsers.id_check_for_username(reg_credential['username'])[0],
+                                              reg_credential['username'], reg_credential['password'])
             accepted_user.save_accepted_auth_to_db()
             return {"message": "User {} is admitted in IUP Managers".format(reg_credential['username'])}, 201
 
