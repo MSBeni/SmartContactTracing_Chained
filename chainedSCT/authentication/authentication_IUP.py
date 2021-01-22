@@ -337,7 +337,7 @@ class AuthorizedUsers:
 
 class AuthAcceptedUsers:
     def __init__(self, user_id, username, password):
-        self.user_id = user_id
+        self.id = user_id
         self.username = username
         self.password = password
 
@@ -356,7 +356,7 @@ class AuthAcceptedUsers:
                 cursor.execute("""
                 DROP TABLE IF EXISTS "public"."iupmanagers";
                 CREATE TABLE "public"."iupmanagers"(
-                    "user_id" int4 NOT NULL,
+                    "id" int4 NOT NULL,
                     "username" text NOT NULL,
                     "password" text NOT NULL
                 )
@@ -381,8 +381,8 @@ class AuthAcceptedUsers:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO iupmanagers (user_id, username, password) VALUES (%s, %s, %s);',
-                               (self.user_id, self.username, self.password))
+                cursor.execute('INSERT INTO iupmanagers (id, username, password) VALUES (%s, %s, %s);',
+                               (self.id, self.username, self.password))
             except:
                 print("Unable to add data")
 
@@ -423,7 +423,7 @@ class AuthAcceptedUsers:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                cursor.execute("SELECT * FROM iupmanagers WHERE user_id=%s;", (identity,))
+                cursor.execute("SELECT * FROM iupmanagers WHERE id=%s;", (identity,))
                 user_ = cursor.fetchone()
                 print(*user_)
                 if user_:
@@ -448,7 +448,7 @@ class AuthAcceptedUsers:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                cursor.execute("SELECT * FROM iupmanagers WHERE user_id=%s;", (identity,))
+                cursor.execute("SELECT * FROM iupmanagers WHERE id=%s;", (identity,))
                 return cursor.fetchone()
             except:
                 print("Failed to read the table contents ...")
