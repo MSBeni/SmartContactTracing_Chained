@@ -76,6 +76,7 @@ def main(argv=None):
         app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
         api = Api(app)
+        app.secret_key = 'msbeni'
         jwt = JWT(app, authenticate, identity)
 
         api.add_resource(GetActiveUsers, '/users')

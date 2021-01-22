@@ -5,6 +5,7 @@ from .authentication_IUP import AuthAcceptedUsers
 def authenticate(id_, password):
     user = AuthAcceptedUsers.get_authenticated_user_by_id(int(id_))
     if user and safe_str_cmp(user.password, password):
+        print("user: ", user)
         return user
 
 
