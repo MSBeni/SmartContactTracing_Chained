@@ -279,7 +279,7 @@ class AuthorizedUsers:
 
 
     @staticmethod
-    def password_check_for_id(id_):
+    def fetch_authorized_username():
         """
         Executing the selection of inner data of the table
         :return:
@@ -290,7 +290,26 @@ class AuthorizedUsers:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                cursor.execute("SELECT authcheck.password FROM authcheck WHERE user_id=%s", (id_,))
+                cursor.execute("SELECT authcheck.usename FROM authcheck;")
+                user_names = cursor.fetchall()
+                return [el[0] for el in user_names]
+            except:
+                print("Failed to read the table contents ...")
+
+
+    @staticmethod
+    def password_check_for_username(username_):
+        """
+        Executing the selection of inner data of the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT authcheck.password FROM authcheck WHERE username=%s", (username_,))
                 return cursor.fetchone()
 
             except:
