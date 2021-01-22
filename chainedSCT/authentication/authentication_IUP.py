@@ -298,8 +298,9 @@ class AuthorizedUsers:
 
 
 class AuthAcceptedUsers:
-    def __init__(self, user_id, password):
+    def __init__(self, user_id, username, password):
         self.user_id = user_id
+        self.username = username
         self.password = password
 
     @staticmethod
@@ -318,6 +319,7 @@ class AuthAcceptedUsers:
                 DROP TABLE IF EXISTS "public"."iupmanagers";
                 CREATE TABLE "public"."iupmanagers"(
                     "user_id" int4 NOT NULL,
+                    "username" text NOT NULL,
                     "password" text NOT NULL
                 )
                 WITH (OIDS=FALSE);
@@ -341,11 +343,35 @@ class AuthAcceptedUsers:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO iupmanagers (user_id, password) VALUES (%s, %s);',
-                               (self.user_id, self.password))
+                cursor.execute('INSERT INTO iupmanagers (user_id, username, password) VALUES (%s, %s, %s);',
+                               (self.user_id, self.username, self.password))
             except:
                 print("Unable to add data")
 
+
+    @classmethod
+    def get_authenticated_user_by_username(cls, username_):
+        """
+        Executing the selection of inner data of the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT * FROM iupmanagers WHERE username=%s;", (username_,))
+                user_ = cursor.fetchone()
+                print(*user_)
+                if user_:
+                    user_f = cls(*user_)
+                else:
+                    user_f = None
+
+                return user_f
+            except:
+                return "Failed to read the table {} contents ...".format('iupmanagers')
 
     @classmethod
     def get_authenticated_user_by_id(cls, identity):

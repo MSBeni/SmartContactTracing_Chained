@@ -74,9 +74,8 @@ def main(argv=None):
         # Create the Web App
         app = Flask(__name__)
         app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
-
-        api = Api(app)
         app.secret_key = 'msbeni'
+        api = Api(app)
         jwt = JWT(app, authenticate, identity)
 
         api.add_resource(GetActiveUsers, '/users')
