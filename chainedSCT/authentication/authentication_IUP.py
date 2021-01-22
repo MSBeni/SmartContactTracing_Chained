@@ -32,7 +32,7 @@ class Infection:
                 WITH (OIDS=FALSE);
                 """)
 
-                print("TABLE {} created".format('locations'))
+                print("TABLE {} created".format('infection'))
 
             except:
                 print("Unable to create the table!!!")
@@ -93,7 +93,7 @@ class Infection:
     @staticmethod
     def fetch_infection_dates():
         """
-        Executing the selection of inner id of the locations from the table
+        Executing the selection of inner id of the infection from the table
         :return:
         """
         dates_lst = []
@@ -163,7 +163,7 @@ class IUP:
                 WITH (OIDS=FALSE);
                 """)
 
-                print("TABLE {} created".format('locations'))
+                print("TABLE {} created".format('IUP'))
 
             except:
                 print("Unable to create the table!!!")
@@ -320,7 +320,7 @@ class AuthAcceptedUsers:
                 WITH (OIDS=FALSE);
                 """)
 
-                print("TABLE {} created".format('locations'))
+                print("TABLE {} created".format('iupmanagers'))
 
             except:
                 print("Unable to create the table!!!")
