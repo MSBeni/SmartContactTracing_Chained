@@ -27,7 +27,7 @@ class Infection:
                 CREATE TABLE IF NOT EXISTS "public"."infection"(
                     "user_id" int4 NOT NULL,
                     "status" BOOLEAN NOT NULL,
-                    "date_" TIME NOT NULL,
+                    "date_" TIME NOT NULL
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -158,7 +158,7 @@ class IUP:
                 DROP TABLE IF EXISTS "public"."iup";
                 CREATE TABLE IF NOT EXISTS "public"."iup"(
                     "id" int4 NOT NULL,
-                    "infection_date" TIME NOT NULL,
+                    "infection_date" TIME NOT NULL
                 )
                 WITH (OIDS=FALSE);
                 """)
