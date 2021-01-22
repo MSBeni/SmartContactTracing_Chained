@@ -24,3 +24,5 @@ mine the block.
 document will be sent to the IUP and will be inserted into that database by the corresponding health officials. 
 This pool is connected to the BSCTS and will share the approval infection transaction with the network.
 -  The mining nodes are the authorized health and management centers who have access to the infeceted users pool (IUP).
+- The TT transactions will be simply verified by leveraging the data saved in IUP. In necessary cases, like when the 
+users intentionally or unintentionally prevent to sent the TT, IUP can also send a request transaction (RT), to the infected node to ask for the trace transaction (TT). This pool is considered since a user may intentionally disseminate false news about his/her infection status probabely to make panic or for any other reasons
