@@ -14,7 +14,6 @@ from .Loading_Blockchian.node import Node
 from flask import Flask
 from flask_restful import Api
 from .authentication.authorized_users import UserCredentialCheck
-from .authentication.create_authorized_users import AuthUser
 from .authentication.security import authenticate, identity
 from flask_jwt import JWT
 from uuid import uuid4
