@@ -13,6 +13,8 @@ from .Loading_Blockchian.resources import GetActiveUsers, MineBlockchain, GetCha
 from .Loading_Blockchian.node import Node
 from flask import Flask
 from flask_restful import Api
+from .authentication.authorized_users import UserCredentialCheck
+from .authentication.create_authorized_users import AuthUser
 from uuid import uuid4
 import requests
 
@@ -81,6 +83,7 @@ def main(argv=None):
         api.add_resource(NodeConnection, '/connect_nodes')
         api.add_resource(AddTransaction, '/add_transaction')
         api.add_resource(ReplaceLongChain, '/replace_long_chain')
+        api.add_resource(UserCredentialCheck, '/login')
 
         if args.nodePort == 5000:
             Node.create_nodes_table()
@@ -88,8 +91,8 @@ def main(argv=None):
         node_.save_to_db()
         print(Node.load_nodes_url_from_db())
         print(Node.fetch_nodes())
-        authorized_users = json.loads(open('../../authorized_users.json', 'r').read())
-        print(len(authorized_users.keys()))
+
+        print(AuthUser.save_auth_user())
 
         app.run(host='0.0.0.0', port=args.nodePort)
 

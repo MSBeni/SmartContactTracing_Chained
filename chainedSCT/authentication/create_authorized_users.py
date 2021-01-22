@@ -4,13 +4,13 @@ import json
 
 class AuthUser:
 
-    authorized_users = json.loads(open('../../../authorized_users.json', 'r').read())
+    authorized_users = json.loads(open('../../authorized_users.json', 'r').read())
 
     @classmethod
     def save_auth_user(cls):
 
         authorized_users_keys = cls.authorized_users.keys()
-        AuthorizedUsers.create_authorization_table()
+        AuthorizedUsers.create_authcheck_table()
 
         for auth_user in authorized_users_keys:
             auth_user_ = AuthorizedUsers(cls.authorized_users[auth_user]['user_id'],

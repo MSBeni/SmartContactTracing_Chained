@@ -222,17 +222,19 @@ class AuthorizedUsers:
             Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
+
             try:
                 cursor.execute("""
-                CREATE TABLE IF NOT EXISTS "public"."authcheck"(
-                    "user_id" int4 NOT NULL,
-                    "username" text NOT NULL,
-                    "password" text NOT NULL,
+                    DROP TABLE IF EXISTS "public"."authcheck";
+                    CREATE TABLE "public"."authcheck" (
+                    "user_id" INTEGER NOT NULL,
+                    "username" character varying(255),
+                    "password" character varying(255)
                 )
                 WITH (OIDS=FALSE);
                 """)
 
-                print("TABLE {} created".format('locations'))
+                print("TABLE {} created".format('authcheck'))
 
             except:
                 print("Unable to create the table!!!")
@@ -313,7 +315,7 @@ class AuthAcceptedUsers:
                 cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "public"."iupmanagers"(
                     "user_id" int4 NOT NULL,
-                    "password" text NOT NULL,
+                    "password" text NOT NULL
                 )
                 WITH (OIDS=FALSE);
                 """)
