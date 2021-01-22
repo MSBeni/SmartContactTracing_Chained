@@ -1,8 +1,10 @@
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
 from ..extraction.user import User
 from uuid import uuid4
 from .node import Node
 from .blockchain import Blockchain
+from ..authentication.security import authenticate, identity
 
 # Create Blockchain
 blockchain = Blockchain()
@@ -12,6 +14,7 @@ node_address = str(uuid4()).replace('-', '')
 
 
 class GetActiveUsers(Resource):
+    @jwt_required()
     def get(self):
         users_ = User.fetch_data()
         return {'users': users_}, 200

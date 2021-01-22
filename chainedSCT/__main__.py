@@ -15,6 +15,8 @@ from flask import Flask
 from flask_restful import Api
 from .authentication.authorized_users import UserCredentialCheck
 from .authentication.create_authorized_users import AuthUser
+from .authentication.security import authenticate, identity
+from flask_jwt import JWT
 from uuid import uuid4
 import requests
 
@@ -74,6 +76,7 @@ def main(argv=None):
         app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
         api = Api(app)
+        jwt = JWT(app, authenticate, identity)
 
         api.add_resource(GetActiveUsers, '/users')
         api.add_resource(GetActiveNodes, '/nodes')
