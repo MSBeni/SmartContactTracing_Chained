@@ -272,7 +272,8 @@ class AuthorizedUsers:
             """
             try:
                 cursor.execute("SELECT authcheck.user_id FROM authcheck;")
-                return cursor.fetchall()
+                user_ids = cursor.fetchall()
+                return [el[0] for el in user_ids]
             except:
                 print("Failed to read the table contents ...")
 
@@ -289,9 +290,9 @@ class AuthorizedUsers:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                cursor.execute("SELECT authcheck.password FROM authcheck WHERE authcheck.username=?;",
-                               (id_,))
+                cursor.execute("SELECT authcheck.password FROM authcheck WHERE user_id=%s", (id_,))
                 return cursor.fetchone()
+
             except:
                 print("Failed to read the table contents ...")
 
@@ -339,8 +340,7 @@ class AuthAcceptedUsers:
             so we should add the commit to the ConnectionFromPool class
             """
             try:
-                cursor.execute('INSERT INTO iupmanagers (user_id, password) VALUES '
-                               '(%s, %s);',
+                cursor.execute('INSERT INTO iupmanagers (user_id, password) VALUES (%s, %s);',
                                (self.user_id, self.password))
             except:
                 print("Unable to add data")
