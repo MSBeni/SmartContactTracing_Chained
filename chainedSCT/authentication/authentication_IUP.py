@@ -205,6 +205,7 @@ class IUP:
                 print("Failed to read the table contents ...")
 
 
+# Save the authorized users from the private document into authcheck DB
 class AuthorizedUsers:
     def __init__(self, user_id, username, password):
         self.user_id = user_id

@@ -19,11 +19,12 @@ class UserCredentialCheck(Resource):
     def post(self):
         AuthAcceptedUsers.create_iupmanagers_table()
         reg_credential = UserCredentialCheck.parser.parse_args()
+        print(reg_credential)
 
-        if reg_credential['id'] not in AuthUser:
+        if reg_credential['id'] not in AuthorizedUsers.fetch_authorized_id():
             return {"message": "You are not specified as an authorized user"}, 400
 
-        elif reg_credential['password'] == AuthorizedUsers.password_check_for_id(reg_credential['password']):
+        elif reg_credential['password'] == AuthorizedUsers.password_check_for_id(reg_credential['id']):
             accepted_user = AuthAcceptedUsers(reg_credential['id'], reg_credential['password'])
             accepted_user.save_accepted_auth_to_db()
 
