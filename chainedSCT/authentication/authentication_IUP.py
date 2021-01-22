@@ -358,7 +358,7 @@ class AuthAcceptedUsers:
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
             try:
-                result = cursor.execute("SELECT * FROM iupmanagers WHERE iupmanagers.id_=?;", (id_,))
+                result = cursor.execute("SELECT * FROM iupmanagers WHERE iupmanagers.id_=%s", (id_,))
                 user_ = result.fetchone()
                 if user_:
                     user_f = cls(*user_)
@@ -366,6 +366,6 @@ class AuthAcceptedUsers:
                 else:
                     user_f = None
             except:
-                print("Failed to read the table contents ...")
+                print("Failed to read the table {} contents ...".format('iupmanagers'))
 
         return user_f
