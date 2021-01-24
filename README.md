@@ -2,7 +2,7 @@
 
 This README would normally document the content of the Comvest website. 
 
-![Alt text](./images/Figure2.png)
+![Alt text](./images/SSP-ICT.png)
 
 
 ### What is this repository for? ###
