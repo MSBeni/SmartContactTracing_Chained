@@ -61,7 +61,12 @@ collected by different BLE beacons. Simulation results corroborate effectiveness
 fading. 
 
 - UWB-based localization:
-
+Sequences of short time-domain impulses transmit over a high-bandwidth radio spectrum in the Impulse Radio UWB (IR-UWB)
+ technology, resulting in an improvement in data rate and localization accuracy for short-range communication. 
+In this project, the UWB data is simulated for the users in the indoor environment and in a fusion approach
+the localization of the users in an indoor environment is made. 
+The original bit stream is modulated based on the Pulse Amplitude Modulation (PAM) method, which is known as one of the 
+efficient IR-UWB modulation schemes. 
 
 
 
@@ -70,6 +75,8 @@ The fusion of the above approaches then will be employed to calculate the exact 
 ## Data Extraction
 The data extraction process consist of different steps mainly focus on the determining the users' location in the environment. The tables users and locations are created in this section. As can be seen in the below figures the data related to each user and their location based on the date, time and their id is saved in the locations table.
 The position data is calculated based on the localization framework comprehensively discussed in both in this repository and the related paper.
+The approach is designed in a way that each user as a node in the blockchain network, will have its own local database and the query will be made through each users contact information.
+For the sake of simplicity, since the whole network is going to be tested in one system as a POC one DB is defined and used.
 ![Alt text](./images/locations_table_sample.png)
 ![Alt text](./images/users_table_sample.png)
 ## Database Configuration
