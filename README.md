@@ -68,8 +68,6 @@ the localization of the users in an indoor environment is made.
 The original bit stream is modulated based on the Pulse Amplitude Modulation (PAM) method, which is known as one of the 
 efficient IR-UWB modulation schemes. 
 
-
-
 - Fusion Approach:
 The fusion of the above approaches then will be employed to calculate the exact location of the user.
 ## Data Extraction
