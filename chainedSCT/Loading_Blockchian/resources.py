@@ -28,10 +28,9 @@ class GetConnectedNodeIds(Resource):
 
 
 class GetActiveNodes(Resource):
-    # @jwt_required()
     def get(self):
-        active_nodes = Node.load_nodes_url_from_db()
-        return {"nodes' id": active_nodes}, 200
+        nodes_ = Node.fetch_nodes()
+        return {'users': nodes_}, 200
 
 
 class MineBlockchain(Resource):
