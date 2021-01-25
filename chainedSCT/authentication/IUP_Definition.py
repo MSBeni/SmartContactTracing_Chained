@@ -7,7 +7,7 @@ class InfectedUsersPool:
     infected_users = json.loads(open('../../IUP.json', 'r').read())
 
     @classmethod
-    def save_auth_user(cls):
+    def save_infected_user(cls):
 
         infected_users_keys = cls.infected_users.keys()
         IUP.create_infection_table()

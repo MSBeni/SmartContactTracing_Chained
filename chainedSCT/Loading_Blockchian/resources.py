@@ -4,6 +4,7 @@ from ..extraction.user import User
 from uuid import uuid4
 from .node import Node
 from .blockchain import Blockchain
+from ..authentication.IUP_Definition import InfectedUsersPool
 from ..authentication.security import authenticate, identity
 
 # Create Blockchain
@@ -31,6 +32,13 @@ class GetActiveNodes(Resource):
     def get(self):
         nodes_ = Node.fetch_nodes()
         return {'users': nodes_}, 200
+
+
+class GetInfectedNodes(Resource):
+    @jwt_required()
+    def get(self):
+        Infected_nodes_ = InfectedUsersPool.save_infected_user()
+        return {'infected users': Infected_nodes_}, 200
 
 
 class MineBlockchain(Resource):
