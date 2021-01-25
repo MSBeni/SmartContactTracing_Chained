@@ -23,7 +23,7 @@ class GetActiveUsers(Resource):
 class GetConnectedNodeIds(Resource):
     @jwt_required()
     def get(self):
-        node_ids = Node.load_nodes_url_from_db()
+        node_ids = Node.fetch_ids()
         return {'Node Ids': node_ids}, 200
 
 
