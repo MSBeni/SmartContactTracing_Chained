@@ -85,7 +85,7 @@ class Node:
             """
             try:
                 cursor.execute("SELECT nodes.id FROM nodes;")
-                print(cursor.fetchall())
+                return cursor.fetchall()
             except:
                 print("Failed to read the table contents ...")
 
