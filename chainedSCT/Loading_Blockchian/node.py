@@ -89,7 +89,6 @@ class Node:
             except:
                 print("Failed to read the table contents ...")
 
-
     @classmethod
     def load_from_db_by_email(cls, port):
         """
