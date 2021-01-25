@@ -156,7 +156,7 @@ class IUP:
             try:
                 cursor.execute("""
                 DROP TABLE IF EXISTS "public"."iup";
-                CREATE TABLE IF NOT EXISTS "public"."iup"(
+                CREATE TABLE "public"."iup"(
                     "id" int4 NOT NULL,
                     "infection_date" TIME NOT NULL
                 )
