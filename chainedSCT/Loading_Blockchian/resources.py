@@ -71,6 +71,11 @@ class NodeConnection(Resource):
                         help='This field cannot be empty')
 
     def post(self):
+        """
+        Get the ID of the new connected node, check for the other connected nodes to the network, and make a connection
+        between this new added node to all other nodes
+        :return:
+        """
         node_id = NodeConnection.parser.parse_args()
         itself = Node.load_port_from_db_by_ids(node_id['id'])
         active_nodes = Node.load_nodes_url_from_db()
