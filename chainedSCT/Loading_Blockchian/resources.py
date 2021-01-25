@@ -34,6 +34,7 @@ class GetActiveNodes(Resource):
 
 
 class MineBlockchain(Resource):
+    @jwt_required()
     def get(self):   # Mining a new block
         """
         the app route to mine the new block
@@ -61,6 +62,7 @@ class GetChain(Resource):   # Getting the full blockchain
         return response, 200
 
 
+# Submission Transaction where the new connected node connect to all other nodes in the network
 class NodeConnection(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id',
