@@ -109,7 +109,7 @@ class Proximity:
                 cursor.execute("SELECT proximity.contact_id FROM proximity WHERE user_id=%s AND distance<%s;", (id_, 5))
                 print(cursor.fetchall())
             except:
-                print("Failed to read the table contents ...")
+                print("Failed to read 'fetch_ids_in_close_proximity' from table {} contents ...".format('proximity'))
 
 
 
