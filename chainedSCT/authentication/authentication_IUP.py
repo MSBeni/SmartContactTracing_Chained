@@ -1,5 +1,6 @@
 from ..extraction.database import CursorFromConnectionPool
-
+import json
+# from bson import json_util
 
 class Infection:
     def __init__(self, user_id, infection, date_):
@@ -139,8 +140,8 @@ class IUP:
         self.id = id_
         self.infection_date = infection_date
 
-    def __repr__(self):
-        return "< User {} >".format(self.user_id)
+    # def __repr__(self):
+    #     return "< User {} >".format(self.id)
 
     @staticmethod
     def create_infection_table():
@@ -158,7 +159,7 @@ class IUP:
                 DROP TABLE IF EXISTS "public"."iup";
                 CREATE TABLE "public"."iup"(
                     "id" int4 NOT NULL,
-                    "infection_date" text NOT NULL
+                    "infection_date" DATE NOT NULL
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -188,8 +189,8 @@ class IUP:
             except:
                 print("Unable to add data")
 
-    @staticmethod
-    def fetch_iup_data():
+    @classmethod
+    def fetch_iup_data(cls):
         """
         Executing the selection of inner data of the table
         :return:
@@ -199,10 +200,13 @@ class IUP:
             Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
+            inf_user = []
             try:
                 cursor.execute("SELECT * FROM iup;")
-
-                return cursor.fetchall()
+                data = cursor.fetchall()
+                for infected_user in data:
+                    inf_user.append({"user": (infected_user[0], infected_user[1].isoformat())})
+                return inf_user
             except:
                 print("Failed to read the table contents ...")
 
@@ -403,7 +407,6 @@ class AuthAcceptedUsers:
             try:
                 cursor.execute("SELECT * FROM iupmanagers WHERE username=%s;", (username_,))
                 user_ = cursor.fetchone()
-                print(*user_)
                 if user_:
                     user_f = cls(*user_)
                 else:
