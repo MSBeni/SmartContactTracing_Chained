@@ -35,7 +35,14 @@ class GetActiveNodes(Resource):
 
 
 class GetInfectedNodes(Resource):
-    # @jwt_required()
+    @jwt_required()
+    def get(self):
+        Infected_nodes_ = InfectedUsersPool.save_infected_user()
+        return {'infected users': Infected_nodes_}, 200
+
+
+class GetInfectedNodesCT(Resource):
+    @jwt_required()
     def get(self):
         Infected_nodes_ = InfectedUsersPool.save_infected_user()
         return {'infected users': Infected_nodes_}, 200

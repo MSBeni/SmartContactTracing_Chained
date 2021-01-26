@@ -140,8 +140,8 @@ class IUP:
         self.id = id_
         self.infection_date = infection_date
 
-    # def __repr__(self):
-    #     return "< User {} >".format(self.id)
+    def __repr__(self):
+        return "< User {} >".format(self.id)
 
     @staticmethod
     def create_infection_table():
