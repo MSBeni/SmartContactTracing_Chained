@@ -158,7 +158,7 @@ class IUP:
                 DROP TABLE IF EXISTS "public"."iup";
                 CREATE TABLE "public"."iup"(
                     "id" int4 NOT NULL,
-                    "infection_date" TIME NOT NULL
+                    "infection_date" text NOT NULL
                 )
                 WITH (OIDS=FALSE);
                 """)
@@ -180,6 +180,7 @@ class IUP:
             --> Note: ConnectionFromPool() is no longer a direct connection so does not commit any more using 'with'
             so we should add the commit to the ConnectionFromPool class
             """
+            # cursor.execute('INSERT INTO iup (id, infection_date) VALUES (%s, %s);', (self.id, self.infection_date))
             try:
                 cursor.execute('INSERT INTO iup (id, infection_date) VALUES '
                                '(%s, %s);',
@@ -200,6 +201,7 @@ class IUP:
             """
             try:
                 cursor.execute("SELECT * FROM iup;")
+
                 return cursor.fetchall()
             except:
                 print("Failed to read the table contents ...")
