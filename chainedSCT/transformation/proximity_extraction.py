@@ -3,6 +3,7 @@ from ..extraction.user import User
 from ..extraction.locations import Location
 import numpy as np
 
+
 class ProximityCALC:
 
     @staticmethod
