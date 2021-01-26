@@ -5,7 +5,7 @@ from uuid import uuid4
 from .node import Node
 from .blockchain import Blockchain
 from ..authentication.IUP_Definition import InfectedUsersPool
-from ..authentication.security import authenticate, identity
+from ..transformation.proximity import Proximity
 
 # Create Blockchain
 blockchain = Blockchain()
@@ -41,10 +41,21 @@ class GetInfectedNodes(Resource):
         return {'infected users': Infected_nodes_}, 200
 
 
-class GetInfectedNodesCT(Resource):
-    @jwt_required()
+class GetInfectedNodeContacts(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('id',
+                        type=str,
+                        required=True,
+                        help='This field cannot be empty')
+
+    # @jwt_required()
     def get(self):
-        Infected_nodes_ = InfectedUsersPool.save_infected_user()
+        """
+        This function return the contact list of an infected user
+        :return:
+        """
+        node_id = NodeConnection.parser.parse_args()
+        Infected_nodes_ = Proximity.fetch_ids_in_close_proximity(node_id)
         return {'infected users': Infected_nodes_}, 200
 
 

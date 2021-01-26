@@ -94,6 +94,24 @@ class Proximity:
                 print("Failed to read the table contents ...")
 
 
+    @staticmethod
+    def fetch_ids_in_close_proximity(id_):
+        """
+        Executing the selection of inner id of the proximity from the table
+        :return:
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute("SELECT proximity.contact_id FROM proximity WHERE user_id=%s AND distance<%s;", (id_, 5))
+                print(cursor.fetchall())
+            except:
+                print("Failed to read the table contents ...")
+
+
 
 
 
