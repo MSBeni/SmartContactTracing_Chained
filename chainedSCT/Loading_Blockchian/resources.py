@@ -48,7 +48,7 @@ class GetInfectedNodeContacts(Resource):
                         required=True,
                         help='This field cannot be empty')
 
-    # @jwt_required()
+    @jwt_required()
     def get(self):
         """
         This function return the contact list of an infected user
@@ -61,7 +61,6 @@ class GetInfectedNodeContacts(Resource):
         for el in Infected_nodes_:
             unique_infected_Contact_List.append(el[0])
         unique_infected_Contact_List = list(set(unique_infected_Contact_List))
-        # print(unique_infected_Contact_List)
         return {'infected users': unique_infected_Contact_List}, 200
 
 
