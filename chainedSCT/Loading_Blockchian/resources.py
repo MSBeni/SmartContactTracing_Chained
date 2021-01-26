@@ -55,8 +55,14 @@ class GetInfectedNodeContacts(Resource):
         :return:
         """
         node_id = NodeConnection.parser.parse_args()
-        Infected_nodes_ = Proximity.fetch_ids_in_close_proximity(node_id)
-        return {'infected users': Infected_nodes_}, 200
+        Infected_nodes_ = Proximity.fetch_ids_in_close_proximity(node_id.id)
+
+        unique_infected_Contact_List = []
+        for el in Infected_nodes_:
+            unique_infected_Contact_List.append(el[0])
+        unique_infected_Contact_List = list(set(unique_infected_Contact_List))
+        # print(unique_infected_Contact_List)
+        return {'infected users': unique_infected_Contact_List}, 200
 
 
 class MineBlockchain(Resource):
