@@ -75,7 +75,7 @@ class MineBlockchain(Resource):
         PreviousProof = PreviousBlock['proof']
         CurrentProof = blockchain.proof_of_work(PreviousProof)
         PreviousHash = blockchain.hash_calc(PreviousBlock)
-        blockchain.add_transaction(sender=node_address, receiver='MSBeni', trace='immediate')
+        blockchain.add_transaction(sender=node_address, receiver='MSBeni', Contacts=['immediate'])
         CurrentBlock = blockchain.create_block(CurrentProof, PreviousHash)
         response = {'message': 'Congrats, You Mined this Block !!!...',
                     'index': CurrentBlock['index'],
@@ -145,17 +145,17 @@ class AddTransaction(Resource):
                         type=str,
                         required=True,
                         help='Receiver of transaction should be known - This field cannot be empty')
-    parser.add_argument('trace',
+    parser.add_argument('Contacts',
                         type=str,
                         required=True,
-                        help='The trace of the contact - This field cannot be empty')
+                        help='The Contacts of the contact - This field cannot be empty')
 
     def post(self):
         data = AddTransaction.parser.parse_args()
-        trans_keys = ['sender', 'receiver', 'trace']
+        trans_keys = ['sender', 'receiver', 'Contacts']
         if not all(key in data for key in trans_keys):
             return 'some elements of the transaction is missing', 400
-        transaction_index = blockchain.add_transaction(data['sender'], data['receiver'], data['trace'])
+        transaction_index = blockchain.add_transaction(data['sender'], data['receiver'], data['Contacts'])
         response = f'This transaction is confirmed to be added to block {transaction_index}'
         return {'message': response}, 201
 
