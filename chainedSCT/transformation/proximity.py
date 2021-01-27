@@ -10,7 +10,7 @@ class Proximity:
         self.proximity = proximity
 
     def __repr__(self):
-        return "< User {} >".format(self.init_user_id)
+        return "< User {} >".format(self.user_id)
 
     @staticmethod
     def create_proximity_table():
@@ -105,14 +105,13 @@ class Proximity:
             Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
             connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
             """
-            cursor.execute("SELECT proximity.contact_id FROM proximity WHERE user_id=%s AND distance < 5;", (id_,))
-            return cursor.fetchall()
-            # try:
-            #     cursor.execute("SELECT proximity.contact_id FROM proximity WHERE user_id=%s AND distance<%s;", (id_, 5))
-            #     return cursor.fetchall()
-            # except:
-            #     print("Failed to read 'fetch_ids_in_close_proximity' from table {} contents ...".format('proximity'))
-            #
+
+            try:
+                cursor.execute("SELECT proximity.contact_id FROM proximity WHERE user_id=%s AND distance < 5;", (id_,))
+                return cursor.fetchall()
+            except:
+                print("Failed to read 'fetch_ids_in_close_proximity' from table {} contents ...".format('proximity'))
+
 
 
 
