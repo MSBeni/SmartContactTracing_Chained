@@ -6,6 +6,7 @@ from .node import Node
 from .blockchain import Blockchain
 from ..authentication.IUP_Definition import InfectedUsersPool
 from ..transformation.proximity import Proximity
+from ..authentication.authentication_IUP import AuthorizedUsers
 
 # Create Blockchain
 blockchain = Blockchain()
@@ -41,6 +42,18 @@ class GetInfectedNodes(Resource):
         return {'infected users': Infected_nodes_}, 200
 
 
+class InfectedContacts:
+    @staticmethod
+    def infected_ids(user_id_):
+        Infected_nodes_ = Proximity.fetch_ids_in_close_proximity(user_id_)
+
+        unique_infected_Contact_List = []
+        for el in Infected_nodes_:
+            unique_infected_Contact_List.append(el[0])
+        unique_infected_Contact_List = list(set(unique_infected_Contact_List))
+        return unique_infected_Contact_List
+
+
 class GetInfectedNodeContacts(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id',
@@ -55,13 +68,10 @@ class GetInfectedNodeContacts(Resource):
         :return:
         """
         node_id = NodeConnection.parser.parse_args()
-        Infected_nodes_ = Proximity.fetch_ids_in_close_proximity(node_id.id)
+        unique_inf_CT = InfectedContacts.infected_ids(node_id.id)
+        return {'infected users': unique_inf_CT}, 200
 
-        unique_infected_Contact_List = []
-        for el in Infected_nodes_:
-            unique_infected_Contact_List.append(el[0])
-        unique_infected_Contact_List = list(set(unique_infected_Contact_List))
-        return {'infected users': unique_infected_Contact_List}, 200
+
 
 
 class MineBlockchain(Resource):
@@ -75,7 +85,7 @@ class MineBlockchain(Resource):
         PreviousProof = PreviousBlock['proof']
         CurrentProof = blockchain.proof_of_work(PreviousProof)
         PreviousHash = blockchain.hash_calc(PreviousBlock)
-        blockchain.add_transaction(sender=node_address, receiver='MSBeni', Contacts=['immediate'])
+        blockchain.add_transaction(sender=node_address, receiver='MSBeni', Contacts=[ ])
         CurrentBlock = blockchain.create_block(CurrentProof, PreviousHash)
         response = {'message': 'Congrats, You Mined this Block !!!...',
                     'index': CurrentBlock['index'],
@@ -135,24 +145,33 @@ class ChainValidity(Resource):    # Check the validity of the blockchain
         return response, 200
 
 
-class AddTransaction(Resource):
+class TransactionTest(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('sender',
+    parser.add_argument('id',
                         type=str,
                         required=True,
                         help='Sender of transaction should be known - This field cannot be empty')
-    parser.add_argument('receiver',
+
+    def get(self):
+        data = AddTransaction.parser.parse_args()
+        authorized_ID = AuthorizedUsers.fetch_authorized_id()
+        unique_inf_CT = InfectedContacts.infected_ids(data.id)
+
+        return {"transaction": [data.id, authorized_ID, unique_inf_CT]}
+
+
+
+class AddTransaction(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('id',
                         type=str,
                         required=True,
-                        help='Receiver of transaction should be known - This field cannot be empty')
-    parser.add_argument('Contacts',
-                        type=str,
-                        required=True,
-                        help='The Contacts of the contact - This field cannot be empty')
+                        help='Sender of transaction should be known - This field cannot be empty')
 
     def post(self):
         data = AddTransaction.parser.parse_args()
-        trans_keys = ['sender', 'receiver', 'Contacts']
+        authorized_ID = AuthorizedUsers.fetch_authorized_id()
+        trans_keys = ['id', 'receiver', 'Contacts']
         if not all(key in data for key in trans_keys):
             return 'some elements of the transaction is missing', 400
         transaction_index = blockchain.add_transaction(data['sender'], data['receiver'], data['Contacts'])

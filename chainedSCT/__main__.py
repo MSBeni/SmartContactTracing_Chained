@@ -9,7 +9,8 @@ from .extraction.locations import Location
 from .transformation.proximity_extraction import ProximityCALC
 from .transformation.proximity import Proximity
 from .Loading_Blockchian.resources import GetActiveUsers, MineBlockchain, GetChain, ChainValidity, NodeConnection, \
-    AddTransaction, ReplaceLongChain, GetActiveNodes, GetConnectedNodeIds, GetInfectedNodes, GetInfectedNodeContacts
+    AddTransaction, ReplaceLongChain, GetActiveNodes, GetConnectedNodeIds, GetInfectedNodes, GetInfectedNodeContacts, \
+    TransactionTest
 from .Loading_Blockchian.node import Node
 from flask import Flask
 from flask_restful import Api
@@ -89,6 +90,8 @@ def main(argv=None):
         api.add_resource(GetConnectedNodeIds, '/ids')
         api.add_resource(GetInfectedNodes, '/infected_nodes')
         api.add_resource(GetInfectedNodeContacts, '/infected_contacts')
+        api.add_resource(TransactionTest, '/transaction_test')
+
 
 
         if args.nodePort == 5000:
