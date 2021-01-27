@@ -72,8 +72,6 @@ class GetInfectedNodeContacts(Resource):
         return {'infected users': unique_inf_CT}, 200
 
 
-
-
 class MineBlockchain(Resource):
     @jwt_required()
     def get(self):   # Mining a new block
@@ -81,11 +79,12 @@ class MineBlockchain(Resource):
         the app route to mine the new block
         :return: json file of the mined block and the success http code 200
         """
+        authorized_ID = AuthorizedUsers.fetch_authorized_id()
         PreviousBlock = blockchain.get_previous_block()
         PreviousProof = PreviousBlock['proof']
         CurrentProof = blockchain.proof_of_work(PreviousProof)
         PreviousHash = blockchain.hash_calc(PreviousBlock)
-        blockchain.add_transaction(sender=node_address, receiver='MSBeni', Contacts=[ ])
+        blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0], contacts=[''])
         CurrentBlock = blockchain.create_block(CurrentProof, PreviousHash)
         response = {'message': 'Congrats, You Mined this Block !!!...',
                     'index': CurrentBlock['index'],
@@ -174,9 +173,6 @@ class AddTransaction(Resource):
         if (authorized_ID[0] is None) or (data.id is None) or (unique_inf_CT is None):
             return 'some elements of the transaction is missing', 400
 
-        trans_keys = ['sender', 'receiver', 'Contacts']
-        if not all(key in data for key in trans_keys):
-            return 'some elements of the transaction is missing', 400
         transaction_index = blockchain.add_transaction(data.id, authorized_ID[0], unique_inf_CT)
         response = f'This transaction is confirmed to be added to block {transaction_index}'
         return {'message': response}, 201

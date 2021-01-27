@@ -88,7 +88,7 @@ class Blockchain:
             block_current_idx += 1
         return True
 
-    def add_transaction(self, sender, receiver, Contacts):
+    def add_transaction(self, sender, receiver, contacts):
         """
         The function to add the new transaction to the transaction list
         :param sender: the node sending a trace
@@ -99,7 +99,7 @@ class Blockchain:
         self.transactions.append({
             'sender': sender,
             'receiver': receiver,
-            'Contacts': Contacts
+            'contacts': contacts
         })
         return self.get_previous_block()['index'] + 1
 
