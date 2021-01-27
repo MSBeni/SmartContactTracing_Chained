@@ -157,7 +157,7 @@ class TransactionTest(Resource):
         authorized_ID = AuthorizedUsers.fetch_authorized_id()
         unique_inf_CT = InfectedContacts.infected_ids(data.id)
 
-        return {"transaction": [data.id, authorized_ID, unique_inf_CT]}
+        return {"transaction": [data.id, authorized_ID[0], unique_inf_CT]}
 
 
 
@@ -171,10 +171,10 @@ class AddTransaction(Resource):
     def post(self):
         data = AddTransaction.parser.parse_args()
         authorized_ID = AuthorizedUsers.fetch_authorized_id()
-        trans_keys = ['id', 'receiver', 'Contacts']
+        trans_keys = ['sender', 'receiver', 'Contacts']
         if not all(key in data for key in trans_keys):
             return 'some elements of the transaction is missing', 400
-        transaction_index = blockchain.add_transaction(data['sender'], data['receiver'], data['Contacts'])
+        transaction_index = blockchain.add_transaction(data.id, data['receiver'], data['Contacts'])
         response = f'This transaction is confirmed to be added to block {transaction_index}'
         return {'message': response}, 201
 
