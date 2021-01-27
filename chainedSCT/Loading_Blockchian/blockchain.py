@@ -91,6 +91,7 @@ class Blockchain:
     def add_transaction(self, sender, receiver, contacts):
         """
         The function to add the new transaction to the transaction list
+        :param contacts:
         :param sender: the node sending a trace
         :param receiver: the node receiving a trace
         :param trace: the trace of the proximity which is sent from one node to another
