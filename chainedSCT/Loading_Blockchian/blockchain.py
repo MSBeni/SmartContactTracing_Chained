@@ -126,8 +126,34 @@ class Blockchain:
         LenMaxCHAIN = len(self.chain)
         for node in current_network:
             rep = requests.get(f'http://{node}/get_chain')
-            print(rep)
+            # print(rep)
             if rep.status_code == 200:
+                _Len_ = rep.json()['length']
+                _Chain_ = rep.json()['chain']
+                if _Len_ > LenMaxCHAIN and self.is_chain_valid(_Chain_):
+                    LenMaxCHAIN = _Len_
+                    LongestChain = _Chain_
+        if LongestChain:
+            self.chain = LongestChain
+            return True
+        return False
+
+    def mining_nodes_input_transactions(self):
+        """
+        Check wether there is a longest chain in our nodes version and replace it
+        :return: the validity of the existence of a longer chain and consequent replacement
+        """
+        current_network = self.nodes
+        LongestChain = None
+        LenMaxCHAIN = len(self.chain)
+        for node in current_network:
+            rep = requests.get(f'http://{node}/get_chain')
+            # print(rep)
+            if rep.status_code == 200:
+                for transaction in rep.json()['chain']['transactions']:
+                    if rep.json()['chain']['index'] == rep.json()['length']:
+                        self.transactions.append(transaction)
+
                 _Len_ = rep.json()['length']
                 _Chain_ = rep.json()['chain']
                 if _Len_ > LenMaxCHAIN and self.is_chain_valid(_Chain_):

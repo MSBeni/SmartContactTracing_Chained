@@ -77,7 +77,6 @@ class GetInfectedNodeContacts(Resource):
 
 class MineBlockchain(Resource):
 
-
     @jwt_required()
     def get(self):   # Mining a new block
         """
@@ -90,9 +89,8 @@ class MineBlockchain(Resource):
         PreviousProof = PreviousBlock['proof']
         CurrentProof = blockchain.proof_of_work(PreviousProof)
         PreviousHash = blockchain.hash_calc(PreviousBlock)
-        print(blockchain.transactions)
         blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0],
-                                   contacts=['Mining Transaction: Replace Longest Chain'])
+                                   contacts=['Mining Transaction: No Reward is Granted'])
         CurrentBlock = blockchain.create_block(CurrentProof, PreviousHash)
         response = {'message': 'Congrats, You Mined this Block !!!...',
                     'index': CurrentBlock['index'],
@@ -177,8 +175,6 @@ class AddTransaction(Resource):
                         type=str,
                         required=True,
                         help='Sender of transaction should be known - This field cannot be empty')
-
-
 
     def post(self):
         global blockchain
