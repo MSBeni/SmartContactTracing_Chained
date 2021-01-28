@@ -91,7 +91,8 @@ class MineBlockchain(Resource):
         CurrentProof = blockchain.proof_of_work(PreviousProof)
         PreviousHash = blockchain.hash_calc(PreviousBlock)
         print(blockchain.transactions)
-        blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0], contacts=[''])
+        blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0],
+                                   contacts=['Mining Transaction: Replace Longest Chain'])
         CurrentBlock = blockchain.create_block(CurrentProof, PreviousHash)
         response = {'message': 'Congrats, You Mined this Block !!!...',
                     'index': CurrentBlock['index'],
@@ -155,7 +156,7 @@ class ChainValidity(Resource):    # Check the validity of the blockchain
         return response, 200
 
 
-class TransactionTest(Resource):
+class TransactionCloseContacts(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id',
                         type=str,
