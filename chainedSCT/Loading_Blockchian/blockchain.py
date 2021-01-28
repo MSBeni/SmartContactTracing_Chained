@@ -102,6 +102,7 @@ class Blockchain:
             'receiver': receiver,
             'contacts': contacts
         })
+        print(self.transactions)
         return self.get_previous_block()['index'] + 1
 
     def add_node(self, address):
@@ -111,7 +112,9 @@ class Blockchain:
         :return: updated set of nodes, added the node url e.g., '127.0.0.1:5000'
         """
         parsed_url = urlparse(address)
+        print(parsed_url)
         self.nodes.add(parsed_url.netloc)
+        print(self.nodes)
 
     def replace_chain(self):
         """

@@ -8,6 +8,9 @@ from ..authentication.IUP_Definition import InfectedUsersPool
 from ..transformation.proximity import Proximity
 from ..authentication.authentication_IUP import AuthorizedUsers
 
+
+from flask import Flask, jsonify, request
+
 # Create Blockchain
 blockchain = Blockchain()
 
@@ -73,17 +76,21 @@ class GetInfectedNodeContacts(Resource):
 
 
 class MineBlockchain(Resource):
+
+
     @jwt_required()
     def get(self):   # Mining a new block
         """
         the app route to mine the new block
         :return: json file of the mined block and the success http code 200
         """
+        global blockchain
         authorized_ID = AuthorizedUsers.fetch_authorized_id()
         PreviousBlock = blockchain.get_previous_block()
         PreviousProof = PreviousBlock['proof']
         CurrentProof = blockchain.proof_of_work(PreviousProof)
         PreviousHash = blockchain.hash_calc(PreviousBlock)
+        print(blockchain.transactions)
         blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0], contacts=[''])
         CurrentBlock = blockchain.create_block(CurrentProof, PreviousHash)
         response = {'message': 'Congrats, You Mined this Block !!!...',
@@ -97,6 +104,7 @@ class MineBlockchain(Resource):
 
 class GetChain(Resource):   # Getting the full blockchain
     def get(self):
+        global blockchain
         response = {'chain': blockchain.chain,
                     'length': len(blockchain.chain)}
         return response, 200
@@ -116,6 +124,7 @@ class NodeConnection(Resource):
         between this new added node to all other nodes
         :return:
         """
+        global blockchain
         node_id = NodeConnection.parser.parse_args()
         itself = Node.load_port_from_db_by_ids(node_id['id'])
         active_nodes = Node.load_nodes_url_from_db()
@@ -132,7 +141,9 @@ class NodeConnection(Resource):
 
 
 class ChainValidity(Resource):    # Check the validity of the blockchain
+
     def get(self):
+        global blockchain
         if blockchain.is_chain_valid(blockchain.chain):
             response = {
                 'message': "The Chain is VALID ...",
@@ -166,7 +177,10 @@ class AddTransaction(Resource):
                         required=True,
                         help='Sender of transaction should be known - This field cannot be empty')
 
+
+
     def post(self):
+        global blockchain
         data = AddTransaction.parser.parse_args()
         authorized_ID = AuthorizedUsers.fetch_authorized_id()
         unique_inf_CT = InfectedContacts.infected_ids(data.id)
@@ -179,7 +193,9 @@ class AddTransaction(Resource):
 
 
 class ReplaceLongChain(Resource):
+
     def get(self):
+        global blockchain
         is_longestChain_replaced = blockchain.replace_chain()
         if is_longestChain_replaced:
             response = {'message': 'There was another longest chain and it is replaced now',
