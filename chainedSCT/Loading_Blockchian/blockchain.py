@@ -102,7 +102,6 @@ class Blockchain:
             'receiver': receiver,
             'contacts': contacts
         })
-        print(self.transactions)
         return self.get_previous_block()['index'] + 1
 
     def add_node(self, address):
@@ -112,9 +111,7 @@ class Blockchain:
         :return: updated set of nodes, added the node url e.g., '127.0.0.1:5000'
         """
         parsed_url = urlparse(address)
-        print(parsed_url)
         self.nodes.add(parsed_url.netloc)
-        print(self.nodes)
 
     def replace_chain(self):
         """
@@ -144,24 +141,16 @@ class Blockchain:
         :return: the validity of the existence of a longer chain and consequent replacement
         """
         current_network = self.nodes
-        # LongestChain = None
-        # LenMaxCHAIN = len(self.chain)
         for node in current_network:
             rep = requests.get(f'http://{node}/get_chain')
-            # print(rep)
+            print("rep.json()['chain']: ", rep.json()['chain'])
+            print("rep.json()['chain']: ", type(rep.json()['chain']))
+            print("rep.json()['chain'][0]: ", rep.json()['chain'][0])
+            print("rep.json()['chain'][0]: ", type(rep.json()['chain'][0]))
             if rep.status_code == 200:
-                for transaction in rep.json()['chain']['transactions']:
-                    if rep.json()['chain']['index'] == rep.json()['length']:
-                        if transaction not in self.transactions:
-                            self.transactions.append(transaction)
+                for transaction in rep.json()['chain']:
+                    if transaction['index'] == rep.json()['length']:
+                        if transaction['transactions'] not in self.transactions:
+                            self.transactions.append(transaction['transactions'])
 
-        #         _Len_ = rep.json()['length']
-        #         _Chain_ = rep.json()['chain']
-        #         if _Len_ > LenMaxCHAIN and self.is_chain_valid(_Chain_):
-        #             LenMaxCHAIN = _Len_
-        #             LongestChain = _Chain_
-        # if LongestChain:
-        #     self.chain = LongestChain
-        #     return True
-        # return False
 

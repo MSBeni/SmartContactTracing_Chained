@@ -89,7 +89,7 @@ class MineBlockchain(Resource):
         PreviousProof = PreviousBlock['proof']
         CurrentProof = blockchain.proof_of_work(PreviousProof)
         PreviousHash = blockchain.hash_calc(PreviousBlock)
-        blockchain.mining_nodes_input_transactions()
+        # blockchain.mining_nodes_input_transactions()
         blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0],
                                    contacts=['Mining Transaction: No Reward is Granted'])
         CurrentBlock = blockchain.create_block(CurrentProof, PreviousHash)
