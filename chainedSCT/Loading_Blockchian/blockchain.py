@@ -152,7 +152,8 @@ class Blockchain:
             if rep.status_code == 200:
                 for transaction in rep.json()['chain']['transactions']:
                     if rep.json()['chain']['index'] == rep.json()['length']:
-                        self.transactions.append(transaction)
+                        if transaction not in self.transactions:
+                            self.transactions.append(transaction)
 
         #         _Len_ = rep.json()['length']
         #         _Chain_ = rep.json()['chain']
