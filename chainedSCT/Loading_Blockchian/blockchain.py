@@ -142,15 +142,15 @@ class Blockchain:
         """
         current_network = self.nodes
         for node in current_network:
-            rep = requests.get(f'http://{node}/get_chain')
+            rep = requests.get(f'http://{node}/get_local_ledger')
             print("rep.json()['chain']: ", rep.json()['chain'])
             print("rep.json()['chain']: ", type(rep.json()['chain']))
             print("rep.json()['chain'][0]: ", rep.json()['chain'][0])
             print("rep.json()['chain'][0]: ", type(rep.json()['chain'][0]))
             if rep.status_code == 200:
                 for transaction in rep.json()['chain']:
-                    if transaction['index'] == rep.json()['length']:
-                        if transaction['transactions'] not in self.transactions:
-                            self.transactions.append(transaction['transactions'])
+                    # if transaction['index'] == rep.json()['length']:
+                    if transaction not in self.transactions:
+                        self.transactions.append(transaction)
 
 
