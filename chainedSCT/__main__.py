@@ -10,7 +10,7 @@ from .transformation.proximity_extraction import ProximityCALC
 from .transformation.proximity import Proximity
 from .Loading_Blockchian.resources import GetActiveUsers, MineBlockchain, GetChain, ChainValidity, NodeConnection, \
     AddTransaction, ReplaceLongChain, GetActiveNodes, GetConnectedNodeIds, GetInfectedNodes, GetInfectedNodeContacts, \
-    TransactionCloseContacts
+    TransactionCloseContacts, GetLocalLedger
 from .Loading_Blockchian.node import Node
 from flask import Flask
 from flask_restful import Api
@@ -91,6 +91,8 @@ def main(argv=None):
         api.add_resource(GetInfectedNodes, '/infected_nodes')
         api.add_resource(GetInfectedNodeContacts, '/infected_contacts')
         api.add_resource(TransactionCloseContacts, '/close_contacts')
+        api.add_resource(GetLocalLedger, '/get_local_ledger')
+
 
 
 
