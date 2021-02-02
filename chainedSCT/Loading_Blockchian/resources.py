@@ -9,8 +9,6 @@ from ..authentication.authentication_IUP import AuthorizedUsers
 from ..authentication.infected_contacts import InfectedContacts
 
 
-from flask import Flask, jsonify, request
-
 # Create Blockchain
 blockchain = Blockchain()
 
@@ -43,8 +41,6 @@ class GetInfectedNodes(Resource):
     def get(self):
         Infected_nodes_ = InfectedUsersPool.save_infected_user()
         return {'infected users': Infected_nodes_}, 200
-
-
 
 
 class GetInfectedNodeContacts(Resource):
