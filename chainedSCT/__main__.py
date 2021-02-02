@@ -29,7 +29,8 @@ def create_parser():
     parser.add_argument('--immediate', type=int, default=1, help="Distance where two users are considered immediate")
     parser.add_argument('--near', type=int, default=5, help="Distance where two users are considered near")
     parser.add_argument('--nodePort', type=int, default=5000, help="The default node port")
-    parser.add_argument('--UserSubmission', type=bool, default=False, help="Create The Fake Users to Test Platform")
+    parser.add_argument('--UsersSubmission', type=bool, default=False, help="Create Fake Users to Test Platform")
+    parser.add_argument('--UsersLocation', type=bool, default=False, help="Create locations for the defined users")
 
 
     return parser
@@ -49,18 +50,16 @@ def main(argv=None):
         Database.initialize(database='chainedSCT', user='i-sip_iot', password=MY_PASS, host='localhost')
 
         # Fake Users Submission Process
-        if args.UserSubmission:
+        if args.UsersSubmission:
             UserDB.users_submission(args)
-
-        # User.fetch_data()
-        # User.fetch_ids()
 
         # Load ids
         ids_lst = User.load_all_ids_from_db()
         # print("ids --->", ids_lst[0])
 
         # create user location
-        UsersDataExtraction.save_location_to_db(args)
+        if args.UsersLocation:
+            UsersDataExtraction.save_location_to_db(args)
 
         # return all location values
         # Location.fetch_loc_data()
@@ -92,9 +91,6 @@ def main(argv=None):
         api.add_resource(GetInfectedNodeContacts, '/infected_contacts')
         api.add_resource(TransactionCloseContacts, '/close_contacts')
         api.add_resource(GetLocalLedger, '/get_local_ledger')
-
-
-
 
         if args.nodePort == 5000:
             Node.create_nodes_table()
