@@ -131,8 +131,8 @@ class Node:
     def load_port_from_db_by_ids(id_):
         """
         Return a node form the database based on specific id
-        id :param str: the email address of the user seeking to return
-        cls :return: cls a currently bound to class Node
+        id :param str: the id of the connected node
+         :return: port of the connected node with specific id
         """
         with CursorFromConnectionPool() as cursor:
             """
@@ -151,7 +151,7 @@ class Node:
         """
         Return a node form the database based on specific port
         port_ :param str: the port of the connected node
-        cls :return: cls a currently bound to class Node
+         :return: id of the connected node with specific port
         """
         with CursorFromConnectionPool() as cursor:
             """
