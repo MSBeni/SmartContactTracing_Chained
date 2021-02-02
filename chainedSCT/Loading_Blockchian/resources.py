@@ -6,6 +6,7 @@ from .node import Node
 from .blockchain import Blockchain
 from ..authentication.IUP_Definition import InfectedUsersPool
 from ..authentication.authentication_IUP import AuthorizedUsers
+from ..authentication.infected_contacts import InfectedContacts
 
 
 from flask import Flask, jsonify, request

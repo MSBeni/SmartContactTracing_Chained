@@ -1,5 +1,6 @@
 from ..transformation.proximity import Proximity
 
+
 class InfectedContacts:
     @staticmethod
     def infected_ids(user_id_):
