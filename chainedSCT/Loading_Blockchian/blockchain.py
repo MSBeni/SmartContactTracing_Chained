@@ -137,7 +137,7 @@ class Blockchain:
 
     def mining_nodes_input_transactions(self):
         """
-        Check wether there is a longest chain in our nodes version and replace it
+        Check whether there is a longest chain in our nodes version and replace it
         :return: the validity of the existence of a longer chain and consequent replacement
         """
         current_network = self.nodes

@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 class InfectedUsersPool:
 
     infected_users = json.loads(open('../../IUP.json', 'r').read())
-    print("infected_users: ", infected_users)
+    # print("infected_users: ", infected_users)
 
     @classmethod
     def save_infected_user(cls):
