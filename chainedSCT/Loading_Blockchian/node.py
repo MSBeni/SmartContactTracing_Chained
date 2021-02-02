@@ -127,7 +127,6 @@ class Node:
             except:
                 print("Problem in fetching data from db")
 
-
     @staticmethod
     def load_port_from_db_by_ids(id_):
         """
@@ -147,6 +146,24 @@ class Node:
             except:
                 print("Problem in fetching data from db")
 
+    @staticmethod
+    def load_id_from_db_by_port(port_):
+        """
+        Return a node form the database based on specific port
+        port_ :param str: the port of the connected node
+        cls :return: cls a currently bound to class Node
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            try:
+                cursor.execute('SELECT nodes.id FROM nodes WHERE port=%s', (port_,))
+                node_data = cursor.fetchone()
+                return node_data[0]
+            except:
+                print("Problem in fetching data from db")
 
     @classmethod
     def load_all_ids_from_db(cls):
