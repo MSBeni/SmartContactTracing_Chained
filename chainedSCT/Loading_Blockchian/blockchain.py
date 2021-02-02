@@ -6,6 +6,7 @@ import hashlib
 import json
 from urllib.parse import urlparse
 import requests
+from .node import Node
 
 
 # Building a Blockchain
@@ -140,6 +141,8 @@ class Blockchain:
         Check whether there is a longest chain in our nodes version and replace it
         :return: the validity of the existence of a longer chain and consequent replacement
         """
+        id_of_user = Node.load_id_from_db_by_port('5001')
+        print(id_of_user)
         current_network = self.nodes
         for node in current_network:
             rep = requests.get(f'http://{node}/get_local_ledger')
