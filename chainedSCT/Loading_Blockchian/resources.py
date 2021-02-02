@@ -56,6 +56,10 @@ class InfectedContacts:
         unique_infected_Contact_List = list(set(unique_infected_Contact_List))
         return unique_infected_Contact_List
 
+    @staticmethod
+    def infected_ids_before_date(user_id_, date_):
+        Infected_nodes_ = Proximity.fetch_ids_in_close_proximity_before_date(user_id_, date_)
+
 
 class GetInfectedNodeContacts(Resource):
     parser = reqparse.RequestParser()
