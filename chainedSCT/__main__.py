@@ -28,7 +28,8 @@ def create_parser():
     parser.add_argument('--usersInDay', type=int, default=10, help="Number of active users in each day")
     parser.add_argument('--immediate', type=int, default=1, help="Distance where two users are considered immediate")
     parser.add_argument('--near', type=int, default=5, help="Distance where two users are considered near")
-    parser.add_argument('--nodePort', type=int, default=5000, help="The ")
+    parser.add_argument('--nodePort', type=int, default=5000, help="The default node port")
+    parser.add_argument('--UserSubmission', type=bool, default=False, help="Create The Fake Users to Test Platform")
 
 
     return parser
@@ -47,10 +48,9 @@ def main(argv=None):
         MY_PASS = json.loads(open('../../secretfiles.json', 'r').read())['web']['user_pw']
         Database.initialize(database='chainedSCT', user='i-sip_iot', password=MY_PASS, host='localhost')
 
-        # user = User('patriciarobinson@gmail.com', 'Samantha', 'Gallegos', 66048763)
-        # UserDB.users_submission(args)
-
-        # print(args.numUsers)
+        # Fake Users Submission Process
+        if args.UserSubmission:
+            UserDB.users_submission(args)
 
         # User.fetch_data()
         # User.fetch_ids()
@@ -60,7 +60,7 @@ def main(argv=None):
         # print("ids --->", ids_lst[0])
 
         # create user location
-        # UsersDataExtraction.save_location_to_db(args)
+        UsersDataExtraction.save_location_to_db(args)
 
         # return all location values
         # Location.fetch_loc_data()
