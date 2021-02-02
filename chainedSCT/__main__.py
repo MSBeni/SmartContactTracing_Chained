@@ -55,7 +55,6 @@ def main(argv=None):
 
         # Load ids
         ids_lst = User.load_all_ids_from_db()
-        # print("ids --->", ids_lst[0])
 
         # create user location
         if args.UsersLocation:
@@ -66,9 +65,6 @@ def main(argv=None):
 
         # ProximityCALC.prox_calc(args)
         # Proximity.fetch_proximity_data()
-
-        # print(contact_dates[0])
-        # print(set(contact_dates))
 
         # Create the Web App
         app = Flask(__name__)
