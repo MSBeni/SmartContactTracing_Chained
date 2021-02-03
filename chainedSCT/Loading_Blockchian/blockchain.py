@@ -7,6 +7,7 @@ import json
 from urllib.parse import urlparse
 import requests
 from .node import Node
+from ..authentication.authentication_IUP import IUP
 
 
 # Building a Blockchain
@@ -156,6 +157,8 @@ class Blockchain:
         :return: the validity of the existence of a longer chain and consequent replacement
         """
         current_network = self.nodes
+        infected_users_ID = IUP.fetch_iup_ids()
+        print(infected_users_ID)
         for node in current_network:
             node_id = Node.load_id_from_db_by_port(node[-4:])
 

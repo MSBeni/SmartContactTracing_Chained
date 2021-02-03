@@ -210,6 +210,27 @@ class IUP:
             except:
                 print("Failed to read the table contents ...")
 
+    @classmethod
+    def fetch_iup_ids(cls):
+        """
+        Executing the selection of ids of the infected users
+        :return: list of infected users id fetched from the IUP database
+        """
+        with CursorFromConnectionPool() as cursor:
+            """
+            Open and close the connection --> calling connection_pool.getconn() and after committing and closing the
+            connection calling the connection_pool.putconn(self.connection) to put the connection in the pool
+            """
+            inf_user_ids = []
+            try:
+                cursor.execute("SELECT iup.id FROM iup;")
+                data = cursor.fetchall()
+                for infected_user_id in data:
+                    inf_user_ids.append(infected_user_id[0])
+                return inf_user_ids
+            except:
+                print("Failed to read the table contents ...")
+
 
 # Save the authorized users from the private document into authcheck DB
 class AuthorizedUsers:
