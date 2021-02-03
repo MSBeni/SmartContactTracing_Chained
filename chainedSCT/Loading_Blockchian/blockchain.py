@@ -158,15 +158,15 @@ class Blockchain:
         """
         current_network = self.nodes
         infected_users_ID = IUP.fetch_iup_ids()
-        print(infected_users_ID)
+        print("infected_users_ID: ", infected_users_ID)
         for node in current_network:
             node_id = Node.load_id_from_db_by_port(node[-4:])
-
-            rep = requests.get(f'http://{node}/get_local_ledger')
-            if rep.status_code == 200:
-                for transaction in rep.json()['chain']:
-                    # if transaction['index'] == rep.json()['length']:
-                    if transaction not in self.transactions:
-                        self.transactions.append(transaction)
+            if node_id in infected_users_ID:
+                rep = requests.get(f'http://{node}/get_local_ledger')
+                if rep.status_code == 200:
+                    for transaction in rep.json()['chain']:
+                        # if transaction['index'] == rep.json()['length']:
+                        if transaction not in self.transactions:
+                            self.transactions.append(transaction)
 
 
