@@ -141,10 +141,24 @@ class Blockchain:
         Check whether there is a longest chain in our nodes version and replace it
         :return: the validity of the existence of a longer chain and consequent replacement
         """
-        id_of_user = Node.load_id_from_db_by_port('5001')
-        print(id_of_user)
         current_network = self.nodes
         for node in current_network:
+            node_id = Node.load_id_from_db_by_port(node[-4:])
+            rep = requests.get(f'http://{node}/get_local_ledger')
+            if rep.status_code == 200:
+                for transaction in rep.json()['chain']:
+                    if transaction not in self.transactions:
+                        self.transactions.append(transaction)
+
+    def mining_infected_nodes_input_transactions(self):
+        """
+        Check whether there is a longest chain in our nodes version and replace it
+        :return: the validity of the existence of a longer chain and consequent replacement
+        """
+        current_network = self.nodes
+        for node in current_network:
+            node_id = Node.load_id_from_db_by_port(node[-4:])
+
             rep = requests.get(f'http://{node}/get_local_ledger')
             if rep.status_code == 200:
                 for transaction in rep.json()['chain']:
