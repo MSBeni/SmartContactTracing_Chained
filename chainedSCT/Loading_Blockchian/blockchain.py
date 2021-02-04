@@ -165,7 +165,6 @@ class Blockchain:
                 rep = requests.get(f'http://{node}/get_local_ledger')
                 if rep.status_code == 200:
                     for transaction in rep.json()['chain']:
-                        # if transaction['index'] == rep.json()['length']:
                         if transaction not in self.transactions:
                             self.transactions.append(transaction)
 

@@ -74,6 +74,7 @@ class MineBlockchain(Resource):
         PreviousProof = PreviousBlock['proof']
         CurrentProof = blockchain.proof_of_work(PreviousProof)
         PreviousHash = blockchain.hash_calc(PreviousBlock)
+        # Adding the transactions of the infected node who is verified in the IUP
         blockchain.mining_infected_nodes_input_transactions()
         blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0],
                                    contacts=['Mining Transaction: No Reward is Granted'])
@@ -192,8 +193,23 @@ class ReplaceLongChain(Resource):
         return response, 201
 
 
+# Send Alert function to probable infected users diagnosed from a mined transaction
+class SendAlert(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('alert',
+                        type=str,
+                        required=True,
+                        help='This field cannot be empty')
 
-
+    @jwt_required()
+    def post(self):
+        """
+        This function send an alert to the nodes who are probably infected by Covid-19
+        :return:
+        """
+        Alert = SendAlert.parser.parse_args()
+        unique_inf_CT = InfectedContacts.infected_ids(Alert)
+        return {'infected users': unique_inf_CT}, 200
 
 
 
