@@ -1,6 +1,7 @@
-# README #
+# TB-ICT #
 
-This README would normally document the content of the Comvest website. 
+### A Trustworthy Blockchain-Enabled System for Indoor COVID-19 Contact Tracing
+This README would normally document the content of the TB-ICT blockchain-based indoor  CT framework website. 
 
 ![Alt text](./images/SSP-ICT.png)
 
@@ -14,6 +15,7 @@ This README would normally document the content of the Comvest website.
 
 ### Materials Covered Here ###
 - [About the Project](#About-the-Project)
+- [Library Installation](#Library-installation)
 - [About The Dataset](#About-The-Dataset)
 - [Data Extraction](#Data-Extraction)
 - [Database Configuration](#Database-Configuration)
@@ -36,6 +38,12 @@ This proximity data based on the defined criteria will be categorized into three
 These extracted data will accompanied with the users id will be fed into the blockchain, to keep it secure and  data cannot be altered or deleted. Since the users with immediate and near proximity are able to infect others, the data of these proximity will be kept on the blockchain.
 
 
+## Library Installation
+You can simply install this library () using the command:
+```bash
+pip install chainedSCT==0.0.1
+```
+In order to be aware of how to work with BSCT Library, 
 ![Alt text](images/blocks_SSP-ICT2.png)
 ## About The Dataset
 In order to prepare the data for the localization purposes, we simulate the AoA and UWB data. Our environment assumed to be an 20 meters to 10 meters indoor environment. The maximum number of users considered to walk through this indoor environment can be set in the application, but it is assumed to be a maximum of 50 persons. 
