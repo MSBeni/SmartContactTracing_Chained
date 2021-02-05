@@ -80,6 +80,8 @@ class MineBlockchain(Resource):
         blockchain.mining_infected_nodes_input_transactions()
         blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0],
                                    contacts=['Mining Transaction: No Reward is Granted'])
+
+        blockchain.cleaning_local_transaction_list()
         CurrentBlock = blockchain.create_block(CurrentProof, PreviousHash)
         response = {'message': 'Congrats, You Mined this Block !!!...',
                     'index': CurrentBlock['index'],
@@ -97,11 +99,17 @@ class GetChain(Resource):   # Getting the full blockchain
         return response, 200
 
 
-class GetLocalLedger(Resource):   # Getting the full blockchain
+class GetLocalLedger(Resource):   # Getting the local ledger of a node
     def get(self):
         response = {'chain': blockchain.transactions,
                     'length': len(blockchain.transactions)}
         return response, 200
+
+
+# class GetLocalTransactionList(Resource):   # Getting local transaction list of a node
+#     def get(self):
+#         response = {'chain': blockchain.transactions}
+#         return response, 200
 
 
 # Submission Transaction where the new connected node connect to all other nodes in the network

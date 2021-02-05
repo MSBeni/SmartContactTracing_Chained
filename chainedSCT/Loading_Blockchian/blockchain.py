@@ -157,7 +157,6 @@ class Blockchain:
         """
         current_network = self.nodes
         infected_users_ID = IUP.fetch_iup_ids()
-        print("infected_users_ID: ", infected_users_ID)
         for node in current_network:
             node_id = Node.load_id_from_db_by_port(node[-4:])
             if (node_id in infected_users_ID) or (node_id in self.last_block_of_infected_nodes_contact_transactions()):
@@ -174,16 +173,10 @@ class Blockchain:
         :return: the validity of the existence of a longer chain and consequent replacement
         """
         current_network = self.nodes
-        infected_users_ID = IUP.fetch_iup_ids()
-        print("infected_users_ID: ", infected_users_ID)
         for node in current_network:
-            node_id = Node.load_id_from_db_by_port(node[-4:])
-            if (node_id in infected_users_ID) or (node_id in self.last_block_of_infected_nodes_contact_transactions()):
-                rep = requests.get(f'http://{node}/get_local_ledger')
-                if rep.status_code == 200:
-                    for transaction in rep.json()['chain']:
-                        if transaction not in self.transactions:
-                            self.transactions.append(transaction)
+            rep = requests.get(f'http://{node}/get_local_ledger')
+            if rep.status_code == 200:
+                rep.json()['chain'] = []
 
     def last_block_of_infected_nodes_contact_transactions(self):
         """
