@@ -160,7 +160,7 @@ class Blockchain:
         print("infected_users_ID: ", infected_users_ID)
         for node in current_network:
             node_id = Node.load_id_from_db_by_port(node[-4:])
-            if node_id in infected_users_ID:
+            if (node_id in infected_users_ID) or (node_id in self.last_block_of_infected_nodes_contact_transactions()):
                 rep = requests.get(f'http://{node}/get_local_ledger')
                 if rep.status_code == 200:
                     for transaction in rep.json()['chain']:
