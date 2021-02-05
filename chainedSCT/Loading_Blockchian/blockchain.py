@@ -167,10 +167,28 @@ class Blockchain:
                         if transaction not in self.transactions:
                             self.transactions.append(transaction)
 
+    def cleaning_local_transaction_list(self):
+        """
+        Before a block is mined and after all the correct transactions are added to the new block all the transaction
+        lists ought to be cleaned
+        :return: the validity of the existence of a longer chain and consequent replacement
+        """
+        current_network = self.nodes
+        infected_users_ID = IUP.fetch_iup_ids()
+        print("infected_users_ID: ", infected_users_ID)
+        for node in current_network:
+            node_id = Node.load_id_from_db_by_port(node[-4:])
+            if (node_id in infected_users_ID) or (node_id in self.last_block_of_infected_nodes_contact_transactions()):
+                rep = requests.get(f'http://{node}/get_local_ledger')
+                if rep.status_code == 200:
+                    for transaction in rep.json()['chain']:
+                        if transaction not in self.transactions:
+                            self.transactions.append(transaction)
+
     def last_block_of_infected_nodes_contact_transactions(self):
         """
         Check which nodes are published as a infected nodes and send alert and add Request Transaction
-        :return: the validity of the existence of a longer chain and consequent replacement
+        :return: list of the contact ids who are infected based on the published transactions
         """
         all_announced_infected_ids = list()
         latest_mined_block = self.chain[-1:][0]
