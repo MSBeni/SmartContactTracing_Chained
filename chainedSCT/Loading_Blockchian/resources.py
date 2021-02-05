@@ -77,7 +77,6 @@ class MineBlockchain(Resource):
         # Previously Announced Infected Contacts of the Covid Positive Users
         # All_Previously_Published_Contacts = blockchain.last_block_of_infected_nodes_contact_transactions()
         # Adding the transactions of the infected node who is verified in the IUP
-        blockchain.mining_infected_nodes_input_transactions()
         blockchain.add_transaction(sender=authorized_ID[0], receiver=authorized_ID[0],
                                    contacts=['Mining Transaction: No Reward is Granted'])
 
