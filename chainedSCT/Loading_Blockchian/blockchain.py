@@ -166,18 +166,6 @@ class Blockchain:
                         if transaction not in self.transactions:
                             self.transactions.append(transaction)
 
-    def cleaning_local_transaction_list(self):
-        """
-        Before a block is mined and after all the correct transactions are added to the new block all the transaction
-        lists ought to be cleaned
-        :return: the validity of the existence of a longer chain and consequent replacement
-        """
-        current_network = self.nodes
-        for node in current_network:
-            rep = requests.get(f'http://{node}/get_local_ledger')
-            if rep.status_code == 200:
-                rep.json()['chain'] = []
-
     def last_block_of_infected_nodes_contact_transactions(self):
         """
         Check which nodes are published as a infected nodes and send alert and add Request Transaction
