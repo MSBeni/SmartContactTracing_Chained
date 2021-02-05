@@ -106,12 +106,6 @@ class GetLocalLedger(Resource):   # Getting the local ledger of a node
         return response, 200
 
 
-# class GetLocalTransactionList(Resource):   # Getting local transaction list of a node
-#     def get(self):
-#         response = {'chain': blockchain.transactions}
-#         return response, 200
-
-
 # Submission Transaction where the new connected node connect to all other nodes in the network
 class NodeConnection(Resource):
     parser = reqparse.RequestParser()
