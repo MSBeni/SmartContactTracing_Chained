@@ -144,7 +144,6 @@ class Blockchain:
         """
         current_network = self.nodes
         for node in current_network:
-            node_id = Node.load_id_from_db_by_port(node[-4:])
             rep = requests.get(f'http://{node}/get_local_ledger')
             if rep.status_code == 200:
                 for transaction in rep.json()['chain']:
@@ -167,5 +166,19 @@ class Blockchain:
                     for transaction in rep.json()['chain']:
                         if transaction not in self.transactions:
                             self.transactions.append(transaction)
+
+    def last_block_of_infected_nodes_contact_transactions(self):
+        """
+        Check which nodes are published as a infected nodes and send alert and add Request Transaction
+        :return: the validity of the existence of a longer chain and consequent replacement
+        """
+        all_announced_infected_ids = list()
+        latest_mined_block = self.chain[-1:][0]
+        for transaction in latest_mined_block['transactions']:
+            all_announced_infected_ids.extend(transaction['contacts'])
+
+        all_announced_infected_ids = list(set(all_announced_infected_ids))
+
+        return all_announced_infected_ids
 
 
