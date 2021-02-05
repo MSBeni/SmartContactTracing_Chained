@@ -99,7 +99,6 @@ class Blockchain:
         :param trace: the trace of the proximity which is sent from one node to another
         :return: the index of the block which the tranaaction is added to
         """
-        self.transactions = []
         self.transactions.append({
             'sender': sender,
             'receiver': receiver,
