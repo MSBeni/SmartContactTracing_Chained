@@ -166,6 +166,7 @@ class Blockchain:
                         if transaction not in self.transactions:
                             self.transactions.append(transaction)
 
+
     def cleaning_local_transaction_list(self):
         """
         Before a block is mined and after all the correct transactions are added to the new block all the transaction
