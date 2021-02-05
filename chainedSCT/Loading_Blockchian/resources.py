@@ -193,7 +193,8 @@ class ReplaceLongChain(Resource):
         else:
             response = {'message': 'We are good. Current chain is the longest one',
                         'current_chain': blockchain.chain}
-
+        # Clear the transactions list of each node after each mining session
+        blockchain.transactions = []
         return response, 201
 
 
