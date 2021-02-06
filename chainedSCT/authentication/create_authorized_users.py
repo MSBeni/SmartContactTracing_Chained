@@ -4,7 +4,7 @@ import json
 
 class AuthUser:
 
-    authorized_users = json.loads(open('../../authorized_users.json', 'r').read())
+    authorized_users = json.loads(open('Private_Data_Files/authorized_users.json', 'r').read())
 
     @classmethod
     def save_auth_user(cls):
