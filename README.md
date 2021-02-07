@@ -104,7 +104,14 @@ Just some mainly features of the data consisting of the users ids and the immedi
 In this project a permissioned blockchian is considered to be used in order to keep the proximity records of the users. Infection data will be saved both on blockchian as a transaction and on the authorized organizations' databases. Just those who have access to this blockchain networks 
 
 ## Work with BSCT Library
-
+In order to work with this loibrary and test it, you should be able to install and run PostgreSQL locally. In order to find out how to do so, please consider the guideline mentioned here: https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/chainedSCT/extraction/README.md
+After installing the postgreSQL, and setting up your database, please initialize the database based on your personal credentials.
+As you can see in the ```__main__``` file, the name of the database, username and the password of the database ought to be defined and set base on your own local system. This project at this step, is a local-based Proof-of-Concept (PoC), and it is nor designed to be a cloud based software.
+You can see credential 
+```bash
+MY_PASS = json.loads(open('../../secretfiles.json', 'r').read())['web']['user_pw']
+Database.initialize(database='chainedSCT', user='i-sip_iot', password=MY_PASS, host='localhost')
+```
 
 ### Exporting your tables into a csv file:
 
