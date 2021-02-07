@@ -106,7 +106,7 @@ In this project a permissioned blockchian is considered to be used in order to k
 ## Work with BSCT Library
 For the first time you should run this command:
 ```bash
- chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --UsersSubmission True --UsersLocation True --numUsers 10
+$ chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --UsersSubmission True --UsersLocation True --numUsers 10
 ```
 All the commands, options and arguments are defined in the following sections.
 #### Setting up Database:
@@ -125,7 +125,7 @@ Database.initialize(database=Your_Database_Name, user=Your_Database_User, passwo
 Please consider this important note to ba able to run and test the code.
 You can also initialize the database in the running process of the project:
 ```bash
-> chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --numUsers 10
+$ chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --numUsers 10
 ```
 
 #### Submitting Users and finding the Locations:
@@ -139,11 +139,11 @@ This will take a bit long to setup all the data to be ready for the test.
 After Database setup, and running the initial node (which is defined to be run on port 5000), you can run other nodes on other preferable ports using ```--nodePort``` argument.
 Simply run this command to start another node in you other terminal tab:
 ```bash
-chainedSCT --numUsers 10 --nodePort PORT_NUMBER
+$ chainedSCT --numUsers 10 --nodePort PORT_NUMBER
 ````
 e.g., you can run many different nodes on different ports:
 ```bash
-chainedSCT --numUsers 10 --nodePort 5001
+$ chainedSCT --numUsers 10 --nodePort 5001
 ````
 #### Set number of users, days, and number of users in a day:
 you can set the total number of users in the indoor environment using the ```--numUsers``` argument.
@@ -151,14 +151,14 @@ Number of days that the test will be held can also be set using ```--numDays``` 
 Number of users in each day can also be set using ```--usersInDay``` argument. 
 You can see a sample of using these arguments here:
 ```bash
-chainedSCT --numUsers 10 --numDays 21 --usersInDay 5 --nodePort 5001
+$ chainedSCT --numUsers 10 --numDays 21 --usersInDay 5 --nodePort 5001
 ````
 ##### Note: Please consider same situation for all nodes which are defined on different ports.
 
 #### Set Proximity Definition:
 In this test, you can set proximity definition based on your insight. ```--immediate``` and ```--near``` arguments can be used to define the immediate and near proximity between the uers.
 ```bash
-chainedSCT --numUsers 10 --immediate 2 --near 5 
+$ chainedSCT --numUsers 10 --immediate 2 --near 5 
 ````
 
 ### Exporting your tables into a csv file:
