@@ -123,6 +123,9 @@ You can also initialize the database in the running process of the project:
 ```bash
 $ chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --numUsers 10
 ```
+
+#### Running Other Nodes in the Network:
+
 #### Running Other Nodes in the Network:
 After Database setup, and running the initial node (which is defined to be run on port 5000), you can run other nodes on other preferable ports using ```--nodePort``` argument.
 Simply run this command to start another node in you other terminal tab:
@@ -143,6 +146,11 @@ chainedSCT --numUsers 10 --numDays 21 --usersInDay 5 --nodePort 5001
 ````
 ##### Note: Please consider same situation for all nodes which are defined on different ports.
 
+#### Set Proximity Definition:
+In this test, you can set proximity definition based on your insight. ```--immediate``` and ```--near``` arguments can be used to define the immediate and near proximity between the uers.
+```bash
+chainedSCT --numUsers 10 --immediate 2 --near 5 
+````
 
 ### Exporting your tables into a csv file:
 
