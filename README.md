@@ -74,6 +74,7 @@ collected by different BLE beacons. Simulation results corroborate effectiveness
 fading. 
 
 - UWB-based localization:
+This localization approach will be considered in the future researches.
 Sequences of short time-domain impulses transmit over a high-bandwidth radio spectrum in the Impulse Radio UWB (IR-UWB)
  technology, resulting in an improvement in data rate and localization accuracy for short-range communication. 
 In this project, the UWB data is simulated for the users in the indoor environment and in a fusion approach
@@ -96,10 +97,11 @@ Please consider this important note that you should be able to connect to your p
 
 
 ## Data Cleansing and Normalization
-
+Al the necessary data about data cleansing and normalization is described in the full version of the paper and will be published soon.
 
 ## Indoor Localization and Proximity Estimation
-
+To have an efficient indoor CT model, it is essential to implement a robust localization framework with high accuracy.
+In this research, first we formulate BLE wireless signal model.  Then, we present our proposed CNN-based AoA localization framework relying on BLE technology.
 
 ## Loading Results on Blockchain
 In the sense of privacy, confidentiality, and data ownership, the growing volume of personal data poses important concerns. Entities whose data is collected can benefit from processes for controlling the parties who are able to access their data and for auditing those who have accessed their data. These problems are answered by a control processes who manage which data can be fed to blockchain and which access control policy can be considered to access the data.
