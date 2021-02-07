@@ -123,9 +123,26 @@ You can also initialize the database in the running process of the project:
 ```bash
 $ chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --numUsers 10
 ```
+#### Running Other Nodes in the Network:
+After Database setup, and running the initial node (which is defined to be run on port 5000), you can run other nodes on other preferable ports using ```--nodePort``` argument.
+Simply run this command to start another node in you other terminal tab:
+```bash
+chainedSCT --numUsers 10 --nodePort PORT_NUMBER
+````
+e.g., you can run many different nodes on different ports:
+```bash
+chainedSCT --numUsers 10 --nodePort 5001
+````
+#### Set number of users, days, and number of users in a day:
+you can set the total number of users in the indoor environment using the ```--numUsers``` argument.
+Number of days that the test will be held can also be set using ```--numDays``` argument.
+Number of users in each day can also be set using ```--usersInDay``` argument. 
+You can see a sample of using these arguments here:
+```bash
+chainedSCT --numUsers 10 --numDays 21 --usersInDay 5 --nodePort 5001
+````
+##### Note: Please consider same situation for all nodes which are defined on different ports.
 
-
-chainedSCT --numUsers 10 --nodePort 5002
 
 ### Exporting your tables into a csv file:
 
