@@ -1,4 +1,9 @@
 # TB-ICT #
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![GitHub](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/LICENSE.txt)
+[![PyPI version fury.io](https://badge.fury.io/py/richest.svg)](https://pypi.org/project/chainedSCT/0.0.2/)
+
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
 ### A Trustworthy Blockchain-Enabled System for Indoor COVID-19 Contact Tracing
 This README would normally document the content of the TB-ICT blockchain-based indoor  CT framework website. 
@@ -41,7 +46,7 @@ These extracted data will be accompanied by the users' id will be fed into the b
 ## Library Installation
 You can simply install this library () using the command:
 ```bash
-pip install chainedSCT==0.0.1
+pip install chainedSCT==0.0.2
 ```
 In order to be aware of how to work with BSCT Library, please check 
 ![Alt text](images/blocks_SSP-ICT2.png)
