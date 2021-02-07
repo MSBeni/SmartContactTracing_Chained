@@ -1,7 +1,7 @@
 # TB-ICT #
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![GitHub](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/LICENSE.txt)
-[![PyPI version fury.io](https://badge.fury.io/py/richest.svg)](https://pypi.org/project/chainedSCT/0.0.2/)
+[![PyPI version fury.io](https://badge.fury.io/py/richest.svg)](https://badge.fury.io/py/richest.svg)
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
