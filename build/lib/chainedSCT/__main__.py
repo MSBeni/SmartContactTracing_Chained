@@ -23,6 +23,8 @@ import requests
 
 def create_parser():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--dbName', type=str, default='chainedSCT', help="Name of the Database")
+    parser.add_argument('--dbUser', type=str, default='i-sip_iot', help="Name of the Database User")
     parser.add_argument('--numUsers', type=int, default=50, help="Number of users in the environment")
     parser.add_argument('--numDays', type=int, default=21, help="Number of days the test is conducted")
     parser.add_argument('--usersInDay', type=int, default=10, help="Number of active users in each day")
@@ -47,7 +49,7 @@ def main(argv=None):
         args = parser.parse_args(argv[1:])
 
         MY_PASS = json.loads(open('../../secretfiles.json', 'r').read())['web']['user_pw']
-        Database.initialize(database='chainedSCT', user='i-sip_iot', password=MY_PASS, host='localhost')
+        Database.initialize(database=args.dbName, user=args.dbUser, password=MY_PASS, host='localhost')
 
         # Fake Users Submission Process
         if args.UsersSubmission:

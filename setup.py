@@ -23,7 +23,7 @@ classifiers = [
 
 
 setup(name='chainedSCT',
-      version='0.0.1',
+      version='0.0.2',
       description='Blockchain-Based Smart Contact Tracing',
       py_modules=["chainedSCT"],
       # package_dir={'': 'GetTweets'},
