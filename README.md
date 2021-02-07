@@ -104,7 +104,11 @@ Just some mainly features of the data consisting of the users ids and the immedi
 In this project a permissioned blockchian is considered to be used in order to keep the proximity records of the users. Infection data will be saved both on blockchian as a transaction and on the authorized organizations' databases. Just those who have access to this blockchain networks 
 
 ## Work with BSCT Library
-
+For the first time you should run this command:
+```bash
+ chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --UsersSubmission True --UsersLocation True --numUsers 10
+```
+All the commands, options and arguments are defined in the following sections.
 #### Setting up Database:
 In order to work with this loibrary and test it, you should be able to install and run PostgreSQL locally. In order to find out how to do so, please consider the guideline mentioned here: https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/chainedSCT/extraction/README.md
 After installing the postgreSQL, and setting up your database, please initialize the database based on your personal credentials.
@@ -121,11 +125,16 @@ Database.initialize(database=Your_Database_Name, user=Your_Database_User, passwo
 Please consider this important note to ba able to run and test the code.
 You can also initialize the database in the running process of the project:
 ```bash
-$ chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --numUsers 10
+> chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --numUsers 10
 ```
 
-#### Running Other Nodes in the Network:
-
+#### Submitting Users and finding the Locations:
+If this is the first time that you are running this code and you want to see the result of the system very quick, 
+You can use ```--UsersSubmission``` and ```--UsersLocation``` arguments to do so:
+```bash
+$ chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --UsersSubmission True --UsersLocation True --numUsers 10
+```
+This will take a bit long to setup all the data to be ready for the test.
 #### Running Other Nodes in the Network:
 After Database setup, and running the initial node (which is defined to be run on port 5000), you can run other nodes on other preferable ports using ```--nodePort``` argument.
 Simply run this command to start another node in you other terminal tab:
