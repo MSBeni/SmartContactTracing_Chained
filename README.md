@@ -117,7 +117,7 @@ $ chainedSCT --dbName Your_Database_Name --dbUser Your_Database_User --UsersSubm
 ```
 All the commands, options and arguments are defined in the following sections.
 #### Setting up Database:
-In order to work with this loibrary and test it, you should be able to install and run PostgreSQL locally. In order to find out how to do so, please consider the guideline mentioned here: https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/chainedSCT/extraction/README.md
+In order to work with this library and test it, you should be able to install and run PostgreSQL locally. In order to find out how to do so, please consider the guideline mentioned here: https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/chainedSCT/extraction/README.md
 After installing the postgreSQL, and setting up your database, please initialize the database based on your personal credentials.
 As you can see in the ```__main__``` file, the name of the database, username and the password of the database ought to be defined and set base on your own local system. This project at this step, is a local-based Proof-of-Concept (PoC), and it is nor designed to be a cloud based software.
 You can see credential 
