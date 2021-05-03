@@ -44,7 +44,7 @@ These extracted data will be accompanied by the users' id will be fed into the b
 
 
 ## Library Installation
-You can simply install this library () using the command:
+You can simply install this library using the command:
 ```bash
 pip install chainedSCT==0.0.2
 ```
