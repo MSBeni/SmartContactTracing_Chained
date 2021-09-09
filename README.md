@@ -92,7 +92,7 @@ For the sake of simplicity, since the whole network is going to be tested in one
 ![Alt text](./images/locations_table_sample.png)
 ![Alt text](./images/users_table_sample.png)
 ## Database Configuration
-Please consider this important note that you should be able to connect to your postgresql. Use the guidance here: https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/chainedSCT/extraction/README.md
+Please consider this important note that you should be able to connect to your postgresql. Use the guidance [here](https://github.com/MSBeni/SmartContactTracing_Chained/blob/master/chainedSCT/extraction/README.md)
 
 
 
